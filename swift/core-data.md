@@ -1,36 +1,6 @@
 # Core Data
 
-### Retrieve Stackoverflow
-
-\[ Do ] \[ Language ] \[ Flatform ]
-
-
-
-### Scope
-
-중괄호로 감싸진 영역으로 코드를 실행할 수 있는 영역이다. 주의할 점은 같은 레벨의 서로 다른 스코프에서 선언된 변수, 함수는 외부에서 사용할 수 없다.
-
-
-
-### Type Inference
-
-스위프트에서 값을 할당하면 그 변수 타입을 지정하지 않아도 자동으로 타입을 추론하여 적용한다.
-
-
-
-### String Interporation
-
-“ \\( )” 문자열 속에서 스위프트 변수, 연산등을 사용할 수 있다.
-
-
-
-### DispatchQueue
-
-별도의 스레드에서 작업할 수 있다. 순차적/비동기식(동시)으로 코드를 실행할 수 있으나 과도한 스레드가 생성될 수 있어 주의가 필요하다.
-
-
-
-### if vs Switch
+### if, Switch
 
 범위가 클수록 패턴 매칭이 if구문보다 효율적이고 읽기 쉬운 코드가 된다. swich를 사용할 때, 꼭 범위 외의 사항에 대한 처리가 필요하며 이는 default에서 처리한다. 또한 각각의 범위는 … / ..< 와 같은 범위 연산 키워드를 사용하여 설정할 수 있다.
 
@@ -127,7 +97,7 @@ performRequest(with: urlString)
 
 대괄호, 제곱, 곱셈 or 나눗셈, 플러스 or 마이너스 순서로 계산한다. 주의할점은 컴퓨터가 같은 우선순위를 계산할 경우 왼쪽에서 부터 차례대로 연산하게 된다
 
-####
+
 
 ### Class
 
@@ -140,138 +110,7 @@ performRequest(with: urlString)
 
 공식문서에서는 객체를 만들 필요성이 있을 때 먼저 구조체 형식으로 만드는 것을 권장한다. 클래스를 let으로 선언할 경우, 구성하고 있는 프로퍼티와 메서드의 접근이 불가능하다.
 
-####
 
-### Framework
-
-메인 ViewController를 제외한 다른 화면을 구성하여 컨트롤하기 위해서 SecondController : UIViewController 의 상속을 받아서 처리한다. Kit은 IOS 개발자를 위해 미리 만들어놓은 소스코드의 모음으로 기존에 스토리보드로 하던 작업을 코드만 사용하여 라벨, 텍스트, 이미지뷰에 접근 수정가능하다.
-
-####
-
-### Create Label with UIKit
-
-```swift
-override func viewDidLoad() {
-	super.viewDidLoad()
-
-	// viewController의 view 객체 접근 가능
-	// UIcolor.red 생략 가능 .red는 UIcolor리턴하고
-	// .backgoundColor는 UIcolor를 받기 때문에 쉬위프트가 자동으로 인식
-	view.backgroundColor = .red
-	
-	let label = UILabel()
-	label.text = "hello"
-
-	// 배치 및 크기 필요
-	label.frame = CGRect()
-
-	// viewController의 최상위가 view이므로 view에 할당
-	view.addSubview(label)
-}
-```
-
-####
-
-### Navigating viewController
-
-```swift
-// 다른 페이지(VC) 보기
-self.present(secondVC, animated:ture, completion: nil)
-```
-
-####
-
-### CoCoa Touch
-
-UIKit 뿐만 아니라 애플에서 만든 라이브러리를 사용할 수 있다. 이를 활용하여 멀티 페이지를 설정하고 세그웨이 및 네비게이팅할 수 있게 된다. 세그웨이는 스크린에 나타날 화면을 애니메이션하는 방법을 말한다.
-
-디자인 된 View Controller를 클릭(노란색네모 클릭)하고 Tab(identify)에서 커스텀 클래스를 CoCoa파일로 만든 클래스를 연동한다.
-
-or
-
-```swift
-// one page
-self.performSegue(withIdentifier: "goToResult", sender: self)
-```
-
-or
-
-```swift
-// multi page
-// mainController(cocoa페이지를 호출하는)
-override func prepare() {
-	if segue.identifier == "goToResult {
-
-		// downcasting by as, 왜냐면 prepare를 호춣하면 기본적으로 UIController를 가져오는데
-		// 이때 우리가 ResultViewController나 bmiValue가 있는지 모르기 때문
-		let destinationVC = segue.destination as! ResultViewController
-		destinationVC.bmiValue = "0.0"
-}
-
-// secondController(cocoa페이지에서)
-// go back to previous page
-self.dismiss(animated: true, completion: nil)
-```
-
-####
-
-### SF symbol
-
-ios13부터 사용가능한 아이콘으로서 자동 스케일, 백터화하여 유저가 건드릴 필요가 없다.
-
-####
-
-### Dark mode
-
-시스템 컬러를 사용하면 운영체제가 지원하는 다크모드를 사용할 수 있다. 커스텀 컬러를 다크모드와 사용하기 위해서는 Assets에서 플러스 버튼을 눌러 Color Set을 지정하면 된다.
-
-####
-
-### Avoid of pixelate Background
-
-Asset에서 1x 2x 3x이미지 변환하는 방법, 벡터 파일을 사용하는 방법이 있다. 백터파일을 사용할 때 Vector Resizing이 가능하게하고 Single scale이 되도록 옵션을 변경한다. 벡터파일로 모든 해상도를 커버할 수 있으니까.
-
-####
-
-### TextField
-
-사용자에게 입력을 받을 수 있다. 현재 ViewController에서 TextField를 인지하기 위해 delegate를 사용하여 참조해주어야한다.
-
-```swift
-// : UITextFieldDelegate(프로토콜)
-searchTextField.delegate = self
-```
-
-검색 버튼, 키보드 버튼에서 입력이 끝날때의 처리를 해야한다.
-
-```swift
-@IBAction func searchPressed(_ sender: UIButton) {
-        searchTextField.endEditing(true)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchTextField.endEditing(true)
-        return true
-    }
-    
-    // 입력 끝내기 직전 -> 성공, 실패
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if searchTextField.text != "" {
-            return true
-        } else {
-            searchTextField.placeholder = "Type something"
-            return false
-        }
-    }
-    
-    // 입력 끝낸 직후
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        searchTextField.text = ""
-        searchTextField.placeholder = "Search"
-    }
-```
-
-####
 
 ### Protocol(certificate)
 
@@ -282,53 +121,6 @@ searchTextField.delegate = self
 여기서 알 수 있는 부분은 모든 능력을 물려줘야하는 상속이 필요하다면 클래스를 사용하고, 어디에서든 사용할 수 있는 기능을 구현해야할 필요가 있을 때 프로토콜을 사용, 그외에 여러 변수를 담는다던지, 객체를 만들어야할 때는 기본적으로 구조체를 할용할 수 있다. 구조체의 경우 값의 복사 참조의 특성을 가져 안전한 사용이 가능한데 프로토콜덕분에 클래스의 상속 개념을 사용하여 모듈화할 수 있습니다.
 
 
-
-### POP(Protocol Oriented Programming)
-
-1.  가볍고 안전하다
-
-    reference by value
-2.  상속 효과
-
-    common method
-3.  수평 구조의 기능 확장
-
-    not only related class
-4.  유연한 처리
-
-    generic
-
-
-
-### API(Application Programming Interface)
-
-명령어, 함수, 프로토콜, 객체의 집합으로서 프로그래머는 소프트웨어를 만들거나 다른 외부 시스템과 소통하기 위해 사용한다. 예를 들어, 애플기기의 기능을 사용하고 싶을 때 혹은 외부 서버의 데이터가 필요할 때 API를 호출할 수 있다.
-
-####
-
-### URLsession
-
-네트워킹 작업을 수행하는 오브젝트.
-
-```swift
-func performRequest(urlString: String) {
-    
-    // 1. Create a URL
-    if let url = URL(string: urlString) {
-        
-        // 2. Create a URLsession
-        let session = URLSession(configuration: .default)
-        
-        // 3. Give the session a task
-        let task = session.dataTask(with: url, completionHandler: handle(data:response:error:))
-        
-        // 4. Start task
-        task.resume()
-    }
-}
-```
-
-####
 
 ### Closures
 
@@ -369,4 +161,149 @@ array.map{"\\($0)"}
 ```
 
 보다시피 클로저를 사용하면 코드를 줄여 간단하게 작성할 수 있다는 것이다. 하지만 읽기 좋은 코드가 되기 힘들다. 읽기좋은 코드와 간결한 코드를 적절한 밸런스로 작성하는 능력은 중요하며 온전히 코드를 작성하는 사람에게 달렸다.
+
+
+
+### Computed Variable
+
+특정 프로퍼티의 영향으로 추출할 수 있는 값을 만들 수 있다. 로직을 굳이 메서드로 표현할 필요가 없다. 항상 var 키워드로 선언해야한다는 것이 특징
+
+```swift
+struct WeatherModel {
+    let conditionId: Int
+    let cityName: String
+    let tamperature: Double
+    
+    var conditionName: String {
+        switch conditionId {
+        case 200...232:
+            return "cloud.bolt"
+        case 300...321:
+            return "cloud.drizzle"
+        case 500...531:
+            return "cloud.rain"
+        case 600...622:
+            return "cloud.snow"
+        case 700...781:
+            return "cloud.fog"
+        case 800:
+            return "sun.max"
+        case 800...804:
+            return "cloud.bolt"
+        default:
+            return "cloud"
+        }
+    }
+}
+```
+
+
+
+### Type Alias
+
+미리 정의된 타입을 위한 약어. 이전에 Decodable타입은 Encodable타입과 동시에 사용할 수 없는데 이때 Codable을 사용하면 둘다 허용된 타입을 사용할 수 있다.
+
+```swift
+typealias Codable = Decodable & Encodable
+```
+
+
+
+### Loop
+
+일련의 작업을 순서대로 수행한다.
+
+```swift
+let fruitBasket = ["Apple", "Orange", "Pear"]
+let fruitBasket2: Set = ["Apple", "Orange", "Pear"]
+let contacts = ["Adam": 12345678, "James": 9876512]
+let titleText = "Flash"
+let closeRange = 1...5
+
+// 배열, 문자열 각 구성 요소 순서대로 순회
+for latter in titleText {
+}
+
+// 효율적인 방식으로 순회(순서 보장 X)
+for fruit in fruitBasket2 {
+}
+
+// 
+for person in contacts {
+	print(person.key)
+	print(person.value)
+}
+
+// use range operator
+for number in 1...5 {
+}
+
+// 5번 순회
+for _ in closeRange {
+}
+
+// isTrue가 false가 될때까지 무한 반복
+// 사용시 주의가 필요하고 종료할 수 있는 원포인트를 꼭 지정해야한다.
+// 얼마나 걸릴지 모르는 작업을 처리할 때 사용한다.
+while isTrue {
+}
+```
+
+
+
+### Set
+
+컬렉션 타입중 하나로 배열과 다르게 순서를 보장하지 않는다.
+
+
+
+### Extensions
+
+기존 메인 코드를 수정하지 않고 추가적인 기능 넣어 확장할 수 있는 기능. structure, class 그리고 protocol에 사용할 수 있다. 애플의 UI 클래스는 오픈소스가 아니라 코드를 수정하는 것이 불가능하지만 이 extension 기능을 사용하면 필요한 기능을 덮어 사용할 수 있다.
+
+```swift
+// 자리수에 맞는 소수점까지 표현하는 메서드 추가
+extension Double {
+	func round(to places: Int) -> Double {
+		let precisionNumber = pow(10, Double(places)	
+		var n = self
+		n = n * preciesionNumber
+		n.round()
+		n = n / preciesionNumber
+		return n
+	}
+}
+
+// 버튼을 원형으로 만드는 메서드 추가
+extension UIButton {
+	func makeCircular() {
+		self.clipsToBounds = true
+		self.layer.cornerRadius = self.frame.size.width / 2
+	}
+}
+
+// 프로토콜의 메서드의 디폴트 구현
+// 프로토콜을 호출한 구조체 또는 클래스에서 메서드를 정의할 필요가 없다.
+extension CanFly {
+	func fly() {
+			print("I believe I can fly")
+	}
+}
+```
+
+
+
+### MARK
+
+파일안에 작성된 코드들을 섹션별로 나눌 수 있다. 또한 커스텀 코드 스니펫을 만들어 활용하기도 한다.
+
+```swift
+// Devide section 
+//MARK: - UITextFeildDelegate
+
+// create code snnipet
+1. //MARK: - 
+2. 오른쪽 클릭
+3. create code snnipet
+```
 
