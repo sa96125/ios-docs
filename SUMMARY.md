@@ -9,3 +9,4 @@
   * [Implementations](swift/implementations.md)
   * [Terms](swift/terms.md)
   * [Tips](swift/tips.md)
+  * [Issue](swift/issue.md)
