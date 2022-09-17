@@ -307,3 +307,30 @@ extension CanFly {
 3. create code snnipet
 ```
 
+
+
+### Static
+
+기존에 구조체안에서 프로퍼티를 만들면 인스턴스를 생성한 후에 사용할 수 있게 된다. 하지만, static 키워드를 사용하게 되면 인스턴스를 생성하지 않고 구조체 고유의 특성, 즉 타입 프로퍼티에 바로 접근할 수 있게 된다.
+
+```swift
+struct Mystructure {
+	let instanceProperty = "ABC"
+	static let typeProperty = "123"
+
+	func instanceMethod() {}
+	static func typeMethod() {}
+}
+
+// need instance
+let myStructure = MyStructure()
+print(myStructure.instanceProperty)
+print(myStructure.instanceMethod)
+
+// no need that
+print(myStructure.typeProperty)
+print(myStructure.typeMethod)
+```
+
+
+

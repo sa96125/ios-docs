@@ -28,7 +28,7 @@ editor > embeded-in > Navagatopm controller
 
 ### Third Party Labaries(Feat. [cocoapods.org](http://cocoapods.org))
 
-cocoapods에서 필요한 기능을 검색해서 사용할 수 있다.
+cocoapods에서 필요한 기능을 검색해서 사용할 수 있다. 여러 패키지 매니저가 있다. 특히나 Swift package manager같은 경우 애플에서 구현한 의존성 관리 툴이다. 하지만! 다양한 써드파티라이브러리를 살펴보면 pod는 지원하지만 SPM을 지원하지 않는 경우가 허다하여 사용할 수 있는 라이브러리가 제한적이다.
 
 ```swift
 // 설치방법
@@ -70,5 +70,15 @@ target 'Flash Chat iOS13' do
   pod 'CLTypingLabel', '~ 0.4.0'
 
 end
+
+
+// 8. 일일히 깃헙에서 버전 업데이트 할 필요없이 설치된 프레임워크를 업데이트 할 수 있다.
+pod update
+
 ```
 
+
+
+### Constant File
+
+String 데이터를 사용할 때 주의할 점은 오타로 인해 발생하는 오류를 Xcode는 대처해주지 않는다는 점이다. 따라서 항상 문자열을 사용해야하는 경우, constatant 파일에 기입하여 후에 발생될 수 있는 에러를 방지한다.

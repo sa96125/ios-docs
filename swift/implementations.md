@@ -163,6 +163,66 @@ locationManager.startUpdatingLocation()
 
 
 
-### TableView
+### BarButton
 
-데이터를 리스트형태로 보여주는 오브젝트이다. 메일, 챗뷰로사용된다.
+네비게이션바에서 사용하는 버튼
+
+
+
+### Navigation
+
+```swift
+// 네비게이션 타이틀
+title = "⚡️FlashChat"
+
+// 백버튼 없애기
+navigationItem.hidesBackButton = true
+
+// 메인 화면으로 돌아가기
+navigationController?.popToRootViewController(animated: true)
+```
+
+
+
+### UITableView
+
+데이터를 리스트형태로 보여주는 오브젝트이다. 메일, 챗뷰로사용된다. 리스트형 데이터를 표현하는 UI 컴포넌트이다. 입력 컴포넌트와 마찬가지로 델리게이션으로 수행된다. 각각의 요소는 UITableCell로 구성되어 있다. 기본 스타일, 선택시 변경사항등을 지정하여 사용할 수 있다. 셀(아이템)의 갯수로 테이블을 정의하고 각 셀에 포함될 데이터를 가공하여 넣는다.
+
+```swift
+tableView.delegate = self
+tableView.dataSource = self
+
+// tableView가 처음 실행될 때 리스트에 보일 데이터 정보를 요청한다.
+// 아래에 소스를 보면 열의 갯수와 각 셀에 담을 정보를 업데이트하여 리턴한다.
+extension ChatViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       // Fetch a cell of the appropriate type.
+       let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
+       
+       // indexPath : 현재 셀 인덱스 
+       cell.textLabel!.text = messages[indexPath.row].body
+       return cell
+    }
+}
+
+// tableView가 인터랙션하는 방식을 구현하는 파트.
+extension ChatViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
+}
+```
+
+
+
+### Custom Design Of Cell
+
+1. create cocoa touch class
+2. class name for cell
+3. pick sub class UITableViewCell
+4. check xib file
+
