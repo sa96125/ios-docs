@@ -226,3 +226,27 @@ extension ChatViewController: UITableViewDelegate {
 3. pick sub class UITableViewCell
 4. check xib file
 
+####
+
+```swift
+
+// Xip - Nip
+// 디자인 파일과 조작하는 영역
+
+// nip 등록
+tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
+
+// as! MessgeCell 직접만든 셀로 변경, 따라서 main에서 만든 tableViewCell은 삭제해도 된다.
+// ReusableCell identifier 설정 -> ReusableCell
+let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
+cell.label.text = messages[indexPath.row].body
+```
+
+
+
+![](../.gitbook/assets/Untitled.png)
+
+1. UIview ( label, ImageView )
+2. StackView(label, ImageView)
+3. 스택뷰 Alignment Top , Spacing , Constraint 조정
+4. Label Lines 0 , Constraint 조정

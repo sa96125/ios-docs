@@ -32,3 +32,9 @@
     ```
 
     > .requestLocation() 메서드를 호출하면 위치값을 얻어 locationManager(_:didUpdateLocations:) 를 즉시 호출하는 함수로 위의 코드에서는 locationManager(_:didUpdateLocations:)을 호출할 수 있게 하는 위임이 늦게 할당되었기 때문에 발생하였다. 따라서 둘의 순서를 바꿔주면 문제는 해결된다.
+
+
+
+*   #### nib must contain exactly one top level object which must be a UITableViewCell instance'
+
+    Cell.xib 파일 안에 한개이상의 뷰가 있어서 발생하는 에러, TableCell 외의 뷰는 삭제함으로서 에러 해결가능.

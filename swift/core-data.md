@@ -209,6 +209,84 @@ typealias Codable = Decodable & Encodable
 
 
 
+### Type Casting
+
+검을 가공하는 프로세스를 연상한다.
+
+```swift
+class Animal {
+	var name: String?
+	init(n: String){
+		name : n
+	}
+}
+
+class Humen : Animal {
+}
+
+class Fish : Animal {
+	func breatheUnderWater() {
+		print("pu pu pu")
+	}
+}
+
+let jake = Humen(n: "Jake park")
+let anjela = Humen(n: "Angela Yu")
+let nemo = Fish(n: "Nemo")
+let animals = [jake, anjela, nemo]
+
+// type checking
+if jack is Human {
+	return
+}
+
+// Upcast
+// convert subclass in to superclass
+let animalFish = fish as Animal
+
+// Forced Downcast
+// convert superclass into subclass
+func findNemo(from animals: [Animal]) {
+	for animal in animals {
+		if animal is Fish {
+			print(animal.name)
+
+			// 코드에 적힌 이상 animal 자체는 Animal 타입이므로,
+			let fish = animal as! Fish
+			fish.breatheUnderWater()
+		}
+	}
+}
+
+// optional cast
+func findNemo(from animals: [Animal]) {
+	for animal in animals {
+		if animal is Fish {
+			print(animal.name)
+
+			// 확신 하지 않을 때, 더욱 안전한 방법으로 처리할 수 있다.
+			if let fish = animal as? Fish {
+				fish?.breatheUnderWater()
+			} else {
+				print("casting has failed")
+			}			
+		}
+	}
+}
+```
+
+
+
+### Any, AnyObject, NsObject
+
+Any 모든 타입을 포괄하는 데이터 타입
+
+AnyObject 클래스로 생성된 형태만 수용하는 데이터 타입
+
+NsObject 오직 NS type만 수용
+
+
+
 ### Loop
 
 일련의 작업을 순서대로 수행한다.
