@@ -82,3 +82,43 @@ pod update
 ### Constant File
 
 String 데이터를 사용할 때 주의할 점은 오타로 인해 발생하는 오류를 Xcode는 대처해주지 않는다는 점이다. 따라서 항상 문자열을 사용해야하는 경우, constatant 파일에 기입하여 후에 발생될 수 있는 에러를 방지한다.
+
+
+
+### Swift Package Manager 사용하는 방법
+
+Pod 패키지랑 사용할 수 잇는데, Pod install 한다음에 SPM를 설치하길 바란다. SPM은 cocoapod위에서 동작하지만 그 반대는 작동하지 않는다.
+
+1. PROJECT Main 파일
+2. Package Dependecies
+3. \+버튼
+4. 라이브러리 URL 주소 입력
+5. 설치
+
+
+
+### Command Line
+
+운영체제가 피스타치오 넛이라고 예를 들면, 커널은 하드웨어와의 인터페이스 할 수 있는 실제 프로그램이라 말할 수 있다. 즉 core of Operating system이라 할 수 있다. 이를 실제 알맹이라 여길 수 있을 것이다. 반면에 껍질은 유저인터페이스라 생각할 수 있는데 껍질을 벗겨야 알맹이를 먹을 수 잇는 것처럼, 컴퓨팅에서는 Bash shell을 이용하여 커널과 상호작용할 수 있는 것이라 생각할 수 있다. Bash는 사람의 이름을 딴 Bourne Again Shell의 줄임말이다. 유닉스 시스템의 커맨드 라인 인터프리터로 리눅스, 맥OS, 유닉스환경에서 사용된다.
+
+우리가 매일 사용하는 Finder은 Graphical user interface가 있고 command line interface처럼 명령어로 파일에 접근하거나 읽을 수 있는 방법이 존재한다. 개발자로서 그래픽적인 인터페이스의 절차를 거치지않고 툴을 잘 다루는 능력, 더 빠르게 동작할 수 있는 방법, 유연하게 대처할 수 잇는 방법에 숙달될 필요가 있다. 더 파워풀하고 더 컨트롤적으로 동작할 수 있지만 위험한 시도가 될 수도 있으니 항상 현재 경로를 유심히 보고 명령어를 사용해야한다.
+
+```swift
+ls
+cd <dirName>/, ~, ..
+mkdir <dirName>
+rm -r <dirName>
+
+// 커서 이동
+alt + click 
+
+// 커서 처음, 끝, 삭제
+ctr + E, A, U
+
+// 텍스트 파일 만들고 열기, 삭제
+touch textFileName.txt
+open textFileName.txt
+open -a VScode textFileName.txt
+rm textFileName.txt
+rm *
+```

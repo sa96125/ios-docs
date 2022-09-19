@@ -101,7 +101,7 @@ performRequest(with: urlString)
 
 ### Class
 
-구조체와 유사하지만 클래스의 경우 슈퍼클래스로부터 상속이 가능하다는 점이 다르다. 상속이란 부모가 가진 특징을 그대로 물려받아 사용할 수 있을 뿐만 아니라 추가적인 능력을 추가할 수 있는 것을 의미한다. 미리 작성된 코드를 사용하게 되어 코드를 생성, 반복하는 작업을 줄일 수 있다. 개인적으로 클래스를 한단어로 표현한다면 **파생**이라 말할 수 잇을 것 같다. 물려받은 능력을 그대로 사용하거나 변형되거나 마치 진화하는 모습처럼. 서브클래스로 만든 인스턴스로 부모로 부터 물려받은 변수를 변경하거나 메서드를 호출하는 것이 가능하다. 부모는 자식을 위해 모든 것을 해주는 모습처럼 여길 수 있을 것 같다. 서브 클래스내에서의 메서드를 변경할때 override, super 키워드를 사용할 수 있.
+구조체와 유사하지만 클래스의 경우 슈퍼클래스로부터 상속이 가능하다는 점이 다르다. 상속이란 부모가 가진 특징을 그대로 물려받아 사용할 수 있을 뿐만 아니라 추가적인 능력을 추가할 수 있는 것을 의미한다. 미리 작성된 코드를 사용하게 되어 코드를 생성, 반복하는 작업을 줄일 수 있다. 개인적으로 클래스를 한단어로 표현한다면 **파생**이라 말할 수 잇을 것 같다. 물려받은 능력을 그대로 사용하거나 변형되거나 마치 진화하는 모습처럼. 서브클래스로 만든 인스턴스로 부모로 부터 물려받은 변수를 변경하거나 메서드를 호출하는 것이 가능하다. 부모는 자식을 위해 모든 것을 해주는 모습처럼 여길 수 있을 것 같다. 서브 클래스내에서의 메서드를 변경할때 override, super 키워드를 사용할 수 있다. 인스턴스 생성시 프로퍼티에 접근하기 위해 구조체의 경우 init을 선언할 필요업지만 클래스의 경우 init을 사용해야한다.
 
 * passed by reference //의도치 않게 변경할 수 있는 위험요소 발생 가능성(다중 스레드 환경에서 주의)
 * inheritance
@@ -412,3 +412,114 @@ print(myStructure.typeMethod)
 
 
 
+### ViewController life cycle
+
+super 필수적으로 입력한다. 운영체제가 순서대로 호출하는 메서드 모음
+
+* 화면이 사용자에게 보이는 시점 1, 2, 3
+* 화면이 사라질려고 할 때 4
+* 화면이 완전히 사라지면 5, 조금이라도 ViewController에 일부분이 보이면 동작하지 않는다.
+
+1.  viewDidLoad()
+
+    화면이 생성되었을 때 오직 한번 호출한다. 모든 UI 컴포넌트, 뷰와 관련된 오브젝트를 연동하고 접근할 수 있는 메서드 영역이다. 즉 이 영역에서 모든 UI과 관련된 태그 셋팅을 해야 이후의 라이프 사이클에서 사용할 수 있다.
+2.  viewWillApear()
+
+    화면이 사용자에게 보이기 직전에 호출, 즉 스크린에 아무것도 보이지 않는 시간대에 호출, 화면이 구성하고 있는 요소들 중에 특정 부분을 보여 줄지 말지에 대한 결정을 내릴 때
+3.  viewDidApear()
+
+    스크린에 View가 보이는 시간 영역으로 타이머를 실행한다던지 사용자가 보는 즉시 해야할 일들을 구현할 수 있다.
+4.  viewWillDisapear()
+
+    화면에서 사라지기 직전에 호출
+5.  viewDidDisapear()
+
+    화면이 사라지고 난 후 호출, user Can’t see! 화면서에 사라진다는 의미가 삭제, 메모리 할당해제를 의미하는 것이 아니다.
+
+
+
+### Application Lifecycle
+
+운영체제는 CPU time, Memory와 같은 한정된 리소스를 할당할지 결정한다. 그렇다면 과연 이에 대한 우선순위는 어떨까? 여러앱을 교차적으로 사용할 때, 내가 입력하고 있는 데이터가 저장되고 있어야한다면 앱이 백그라운드로 들어가는 시점의 라이프사이클에 저장 작업이 수행 될 것이다.
+
+프로젝트를 생성할 때, AppDelegate와 SceneDelegate 함수를 보았을 것이다. 앱 사이클 메서드가 위치하는 곳이 바로 이 파일들이다. 그렇다면 이 둘의 차이점은 뭘까? xcode 11전에는 AppDelegate 파일만 존재했었다. IOS13 이후 iPadOS와 같이 지금은 다양한 윈도우에서 여러 앱이 동작할 수 있게 되었는데, 각각의 윈도우 즉 Scene의 라이프사이클을 관리할 필요성이 생겼고 이를 위해 SceneDelegate가 생기게 되었다. 공통적인 이벤트는 AppDelegate에서 작동하고 윈도우를 위한 개별 콜백은 SceneDelegate에서 호출한다.
+
+여러개의 ViewController는 하나의 Scene에 여러개의 Scene은 하나의 App에 있다. 이 모든 요소는 라이프사이클 메서드를 가지며 override해서 사용할 수 있게 된다.
+
+```swift
+// AppDelegate Life cycle methods
+// 앱 실행하면 트리거되는 클래스, didFinishLaunchingWithOptions로 인해 런칭을 끝내면 웰컴 스크린을 볼 수 있다. 즉, func application에 포함된 함수가 정상적으로 실행되었다는 것을 의미합니다.
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+	        
+	// 현재 함수명 출력, 언제???
+	// 가장 먼저 호출,
+	print(#function)
+
+  return true
+}
+
+// SceneDelegate Life cycle methods
+func sceneDidDisconnect(_ scene: UIScene) {
+        // Called as the scene is being released by the system.
+        // This occurs shortly after the scene enters the background, or when its session is discarded.
+        // Release any resources associated with this scene that can be re-created the next time the scene connects.
+        // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
+    }
+
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        // Called when the scene has moved from an inactive state to an active state.
+        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+    }
+
+    func sceneWillResignActive(_ scene: UIScene) {
+        // Called when the scene will move from an active state to an inactive state.
+        // This may occur due to temporary interruptions (ex. an incoming phone call).
+    }
+
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        // Called as the scene transitions from the background to the foreground.
+        // Use this method to undo the changes made on entering the background.
+    }
+
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        // Called as the scene transitions from the foreground to the background.
+        // Use this method to save data, release shared resources, and store enough scene-specific state information
+        // to restore the scene back to its current state.
+    }
+```
+
+
+
+### Swift UI
+
+2019 wwdc에서 공개된 선언형 스위프트 코드 UI 프레임워크다. 더 쉽게 IOS개발을 돕기위해 만들어졌다. 메인 목표 중 하나는 IOS APP의 레이아웃을 drag on drop 하여 더 쉽게 만들 수 있다는 점이다. Easy Layouts VHZ stack (vertical, horizontal, z-axis stack), Highly reusable, Live on Screen 그리고 Cross Apple Platform Interface와 같은 특징을 가졌다.
+
+최소 macOS V 10.15, Xcode 11.0에서 사용할 수 있고 IOS 13, IPhone 6s, Ipad Air2와 같은 기기에서 동작한다. 따라서 이전 버전을 사용하는 오래된 기기에서는 스위프트UI로 만들어진 앱을 다운로드할 수 없다.
+
+```swift
+struct ContentView: View {
+    var body: some View {
+        ZStack{
+            Color.blue
+                .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            VStack {
+                Text("Hello, world!")
+                    .font(.system(size: 40))
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
+                Image("diamond")
+										.resizable()
+										.aspectRatio(contentMode: .fit)
+                    .frame(width: 200, height: 200, alignment: .center)
+            }
+        }
+    }
+}
+
+// Device Model 변경
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView().previewDevice(PreviewDevice(rawValue:"iPhone SE"))
+    }
+}
+```

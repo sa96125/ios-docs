@@ -250,3 +250,113 @@ cell.label.text = messages[indexPath.row].body
 2. StackView(label, ImageView)
 3. 스택뷰 Alignment Top , Spacing , Constraint 조정
 4. Label Lines 0 , Constraint 조정
+
+
+
+### Firebase DB
+
+1.  클라우드 파이어스토어
+
+    spank new DB, more feature
+2.  리얼타임 데이터베이스
+
+    only JSON in the cloud
+
+지역 설정할 때, 각 지역별로 네트워크 속도가 다르지만 비용 또한 다를 수 있다는 점 알자.
+
+```swift
+import FirebaseFirestore
+
+// 생성
+let db = Firestore.firestore()
+
+// 데이터 저장, field in Collection 
+if let messageBody = messageTextfield.text, let messageSender = Auth.auth().currentUser?.email {
+    db.collection(K.FStore.collectionName).addDocument(data: [
+        K.FStore.senderField: messageSender,
+        K.FStore.bodyField: messageBody
+    ]) { (error) in
+        if let e = error {
+            print("There was an issue saving data to firestore, \\(e)")
+        } else {
+            print("Successfully saved data.")
+        }
+    }
+}
+
+// 데이터 읽기, 수동 업데이트, 자동 업데이트 getDocuments -> addSnapshotListener
+db.collection(K.FStore.collectionName).getDocuments { (querySnapshot, error) in
+    if let e = error {
+        print("There was an issue retrieving data from Firesotre. \\(e)")
+    } else {
+        if let snapshotDocuments = querySnapshot?.documents {
+            for doc in snapshotDocuments {
+                let data = doc.data()
+                if let messageSender = data[K.FStore.senderField] as? String, let messageBody = data[K.FStore.bodyField] as? String {
+                    let newMessage = Message(sender: messageSender, body: messageBody)
+                    self.messages.append(newMessage)
+                    
+                    // 클로저는 백그라운드에서 처리 되어 메인스레드에서 처리할 부분을 따로 처리
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 데이터 읽고 쓰기 인증 제한
+// 아래는 기본 규칙 세트의 몇 가지 예입니다. 유효한 규칙이지만 프로덕션 애플리케이션에는 권장되지 않습니다.
+// Allow read/write access on all documents to any user signed in to the application
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+
+
+
+### 키보드 뜨면 입력창이 가려지는 문제
+
+각각의 디바이스가 가진 키보드 디자인이 달라 일일히 하드코딩해야할까? nope IQKeyboardManager 라이브러리를 사용해보자.
+
+
+
+
+
+### 로그인 유저 Style
+
+```swift
+if message.sender == Auth.auth().currentUser?.email {
+            cell.leftImageView.isHidden = true
+            cell.rightImageView.isHidden = false
+            cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.lightPurple)
+            cell.label.textColor = UIColor(named: K.BrandColors.purple)
+        } else {
+            cell.leftImageView.isHidden = false
+            cell.rightImageView.isHidden = true
+            cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.purple)
+            cell.label.textColor = UIColor(named: K.BrandColors.lightPurple)
+        }
+```
+
+
+
+### 스크롤 업
+
+indexPath 오브젝트로 현재 1번째 섹션에 있는 마지막 리스트 아이템 인덱스를 가져온다. 현제 테이블 뷰에 섹션이 하나 박에 없어서 0 으로 입력한다. 이 후 테이블 뷰 스크롤 메서드를 호출하는데 해당 인덱스로 이동하는데 애니메이션을 사용할지 말지에 대해 옵션을 기입한다.
+
+```swift
+let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+```
+
+
+
+### SwiftUI Font 추가하는 방법
+
+xcode13에서 plist파일이 제거 되었기때문에 targets > Info > Custom iOS Target Properties에서 Fonts provided by application를 추가한 후 디렉토리에 추가된 Info파일에서 <폰트이름>.ttf파일을 추가한다.
