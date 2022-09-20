@@ -1,5 +1,91 @@
 # Tips
 
+### Git
+
+```swift
+// git 설치
+git init
+
+// 히든 파일까지 볼 수 있다.
+ls -a
+
+// working directory에 있는 파일을 보여주며
+// 커밋이 가능한 상태인지 아닌지를 나타낸다.
+git status
+
+// into Staging area
+// 커밋할 파일들을 준비해놓은 공간, 파일 추적의 시작점
+git add 
+git add .
+
+// undo 전체 파일 in Staging area
+git rm --cached -r .
+
+// into Local Respository
+// 나중에 프로젝트 구현 일부분은 추적하거나,
+// 동료와 원할한 협업을 하기위해서는 메세지를 잘 적어놔야한다.
+git commit -m "메세지"
+
+// 커밋 완료된 파일 확인
+git log
+
+//  modified가 있을 경우, 세부사항 확인
+git diff <파일네임>
+
+// 수정전 레포에 저장되었던 파일로 다시 되돌리고 싶을 때,
+git checkout <파일네임>
+
+// remote repository to Github
+// 내가 만든 커밋들을 전송하겠다.
+git remote add origin <URL>
+
+// into Remote Respository
+// host commited resources
+git push -u origin main
+
+// clone project to local
+git clone <URL>
+
+// 새로운 브랜치 생성
+git branch <new branch name>
+
+// 확인(항상 git을 사용하기 전에 확인하는 습관)
+git branch
+
+// 변경
+git checkout <branch name>
+
+// 메인 브랜치에서 병합
+git merge <branch name>
+
+//
+```
+
+
+
+### .gitignore
+
+secretkey와 같은 민감한 정보를 담은 파일을 담지 않도록 리스트를 작성하는 파일, git/gitignore/swift 샘플을 다운 받아 사용할 수 있다.
+
+```swift
+// 히든 파일로 만들기
+touch .gitignore
+
+// rule
+.DS_Store
+secrets.txt
+#PodFile
+*.txt
+```
+
+
+
+### Fork vs Clone
+
+클론과 달리 Git 포크 작업은 대상 리포지토리의 완전히 새로운 복사본을 생성한다. 새로운 복사본에서 Pull Request를 요청하면 승인에 따라 본 프로젝트에 병합된다. Git 포크 또는 클론 중에서 선택하는 것은 코드베이스에 대해 얼마나 많은 제어가 필요한지와 다른 기여자와 얼마나 협력적으로 작업하고 싶은지에 달려 있. 분산 및 협업 개발 워크플로가 원활하게 실행되도록 현명하게 선택하여 작업한다.
+
+
+
 ### Retrieve Stackoverflow
 
 \[ Do ] \[ Language ] \[ Flatform ]
