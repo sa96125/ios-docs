@@ -1,8 +1,216 @@
 # Core Data
 
-### if, Switch
+### var, let
+
+값과 이름을 연결하는 키워드이다. 상수(let)은 값이 할당되면 변경할 수 없지만 변수(var)를 사용하면 변경 할 수 있다.&#x20;
+
+```swift
+// 쉼표를 구분하여 한 줄에 여러 상수 또는 변수 선언 가능
+var a = 0, b = 1, c= 2
+
+// Type Annotations
+var name: String = "Jake"
+
+// Type Inference으로 타입 생략
+// 스위프트 컴파일러가 알아서 타입을 추론
+var name = "Jake"
+
+// 변수 상수 이름 유니코드로 모든 문자를 사용
+var 🐶 = "dog"
+
+// 변수 및 상수 인쇄
+// print(_:separator:terminator:)
+// separator, terminator는 디폴트값이 있어 생략
+print(🐶)
+```
+
+
+
+### Immutability
+
+let과 같은 키워드를 사용하면 값의 수정이 불가능한데 이를 immutable이라고 한다. 밑에서 설명 구조체를 예로들면, 구조체를 구성하는 프로퍼티 변수를 수정하는 일이 있을 수 있다. 실제 인스턴스에서 이 변수를 수정하는 일이 발생하면 메서드를 사용해야하는데 이때 메서드 속에는 self 키워드로 구조체 변수에 접근하는 로직이 작성된다. **주의할 점은 구조체의 self는 인스턴스 생성시 let으로 생성되기 때문에 변수를 수정하는 것이 불가능하다.** 이때 구조체에서 var로 선언된 변수를 수정하기 위해서는 mutating이라는 키워드로 메서드를 선언해야한다. 이때는 self 키워드를 사용하지 않아도 변수에 접근할 수 있다.&#x20;
+
+
+
+### **Operators**
+
+대괄호, 제곱, 곱셈 or 나눗셈, 플러스 or 마이너스 순서로 계산한다. 주의할점은 컴퓨터가 같은 우선순위를 계산할 경우 왼쪽에서 부터 차례대로 연산하게 된다
+
+* assignment operator
+* equal to operator (==)
+* Arithmetic operators (+, -, \*, /, %)
+* range operators(…, ..<)
+
+```swift
+// C 및 Objective-C의 산술 연산자와 달리 Swift 산술 연산자는 기본적으로 값이 오버플로되는 것을 허용하지않는다.
+// 필요에 따라 ampersand(&)로 시작하는 연산 사용해야한다.(&+)
+
+// string 연결 가능
+"hello, " + "world"
+
+// Ternary Conditional Operator
+n == 0 ? "none" : "something"
+
+// One-Sided Ranges
+// index 2이하 전부
+for name in names[...2] {
+    print(name)
+}
+```
+
+
+
+### Collection Types
+
+스위프트에서는 값을 저장하기 위해 3가지 기본 컬렉션 타입을 가진다.
+
+* 순서가 있는 값의 모음
+* 순서가 없고 고유한 값의 모음
+* 순서가 없고 키와 연결된 값의 모음
+
+이러한 특징을 가진 타입을 순서대로 배열, 셋, 딕셔너리라 한다. 이 컬렉션을 var에 할당하면 크기와 내용을 변경할 수 있지만, let에 할당하면 불가능하다.
+
+```swift
+// Array
+var dogs: Array<String> = []
+var cats: [String] = []
+var pets = [String]()
+
+for item in shoppingList {
+    print(item)
+}
+
+for (index, value) in shoppingList.enumerated() {
+    print("Item \\(index + 1): \\(value)")
+}
+```
+
+```swift
+// Set
+var letters = Set<Character>()
+
+for genre in favoriteGenres {
+    print("\\(genre)")
+}
+
+// Set은 순서가 없지만 순서가 있는 배열 형태로 변환 가능
+for genre in favoriteGenres.sorted() {
+    print("\\(genre)")
+}
+
+let oddDigits: Set = [1, 3, 5, 7, 9]
+let evenDigits: Set = [0, 2, 4, 6, 8]
+let singleDigitPrimeNumbers: Set = [2, 3, 5, 7]
+
+oddDigits.union(evenDigits).sorted()
+// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+oddDigits.intersection(evenDigits).sorted()
+// []
+oddDigits.subtracting(singleDigitPrimeNumbers).sorted()
+// [1, 9]
+oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted()
+// [1, 2, 9]
+
+let houseAnimals: Set = ["🐶", "🐱"]
+let farmAnimals: Set = ["🐮", "🐔", "🐑", "🐶", "🐱"]
+let cityAnimals: Set = ["🐦", "🐭"]
+
+houseAnimals.isSubset(of: farmAnimals)
+// true
+farmAnimals.isSuperset(of: houseAnimals)
+// true
+farmAnimals.isDisjoint(with: cityAnimals)
+// true
+```
+
+```swift
+// Dictionary
+var namesOfIntegers: [Int: String] = [:]
+
+for (airportCode, airportName) in airports {
+    print("\\(airportCode): \\(airportName)")
+}
+
+for airportCode in airports.keys {
+    print("Airport code: \\(airportCode)")
+}
+
+for airportName in airports.values {
+    print("Airport name: \\(airportName)")
+}
+```
+
+
+
+### Loop
+
+일련의 작업을 순서대로 수행한다.
+
+```swift
+let fruitBasket = ["Apple", "Orange", "Pear"]
+let fruitBasket2: Set = ["Apple", "Orange", "Pear"]
+let contacts = ["Adam": 12345678, "James": 9876512]
+let titleText = "Flash"
+let closeRange = 1...5
+
+// 배열, 문자열 각 구성 요소 순서대로 순회
+for latter in titleText {
+}
+
+// 효율적인 방식으로 순회(순서 보장 X)
+for fruit in fruitBasket2 {
+}
+
+// 
+for person in contacts {
+	print(person.key)
+	print(person.value)
+}
+
+// use range operator
+for number in 1...5 {
+}
+
+// 5번 순회
+for _ in closeRange {
+}
+
+// isTrue가 false가 될때까지 무한 반복
+// 사용시 주의가 필요하고 종료할 수 있는 원포인트를 꼭 지정해야한다.
+// 얼마나 걸릴지 모르는 작업을 처리할 때 사용한다.
+while isTrue {
+}
+```
+
+
+
+### switch vs if
 
 범위가 클수록 패턴 매칭이 if구문보다 효율적이고 읽기 쉬운 코드가 된다. swich를 사용할 때, 꼭 범위 외의 사항에 대한 처리가 필요하며 이는 default에서 처리한다. 또한 각각의 범위는 … / ..< 와 같은 범위 연산 키워드를 사용하여 설정할 수 있다.
+
+```swift
+ // if로 이렇게 선언하면 따귀 맞는다.
+ var conditionName: String {
+        switch conditionId {
+        case 200...232:
+            return "cloud.bolt"
+        case 300...321:
+            return "cloud.drizzle"
+        case 500...531:
+            return "cloud.rain"
+        case 600...622:
+            return "cloud.snow"
+        case 700...781:
+            return "cloud.fog"
+        case 800:
+            return "sun.max"
+        case 800...804:
+            return "cloud.bolt"
+        default:
+            return "cloud"
+        }
+}
+```
 
 
 
@@ -13,6 +221,46 @@ Input과 output이 없을 경우, () {}
 Input만 있을 경우 (parameter: DataType)
 
 Output만 있을 경우 () returnArrow DataType { return Keyword value } 로 정의할 수 있다.
+
+
+
+### Error Handling
+
+프로그램 실행 중에 발생할 수 있는 오류 조건을 함수 내에 작성하면 함수를 호출한 곳에서 정확하게 오류를 응답할 수 있.
+
+```swift
+// 오류가능성이 있는 함수는 throws 키워드를 입력
+func canThrowAnError() throws {
+}
+
+// 에러 가능성이 있는 함수 호출할 경우, do, try, catch 구문 사
+do {
+    try canThrowAnError()
+} catch {
+    print(error)
+}
+```
+
+
+
+### Debugging
+
+print는 단지 값을 인쇄하는 역할이지만 assertion을 사용하면 프로그램을 종료시킬 수 있어 디버깅에 적합한 명령어다. 런타임에 발생하는 검사로 필수 조건을 충족하였는지 확인할 때 사용할 수 있.
+
+```swift
+// 성공 조건, 실패 문구를 기입
+// age < 0 종료
+assert(age >= 0, "A person's age can't be less than zero.")
+
+// 이미 실패 조건일 경우, 강제 종료 가능
+if age > 10 {
+    print("You can ride the roller-coaster or the ferris wheel.")
+} else if age >= 0 {
+    print("You can ride the ferris wheel.")
+} else {
+    assertionFailure("A person's age can't be less than zero.")
+}
+```
 
 
 
@@ -27,12 +275,6 @@ structure에 사용할 데이터를 모두 담아둘 수도 있지만, initializ
 ### Self keword
 
 자바스크립트의 this와 같다. 즉 실제 생성될 객체를 가르킨다. 블루프린트를 통해 생성된 객체는 각기 다른 특성을 가지고 있다. self를 통해 각각 생성된 객체의 프로퍼티 또는 메서드에 접근할 수 있게 된다. 클래스 내에서 self를 생략해도 스위프트가 알아서 찾아 낼 수 있지만 클로저를 사용할 경우, self를 생각해서는 안된다.
-
-
-
-### Immutability
-
-let과 같은 키워드를 사용하면 값의 수정이 불가능한데 이를 immutable이라고 한다. 앞서 설명한 구조체를 예로들면, 구조체를 구성하는 프로퍼티 변수를 수정하는 일이 있을 수 있다. 실제 인스턴스에서 이 변수를 수정하는 일이 발생하면 메서드를 사용해야하는데 이때 메서드 속에는 self 키워드로 구조체 변수에 접근하는 로직이 작성된다. **주의할 점은 구조체의 self는 인스턴스 생성시 let으로 생성되기 때문에 변수를 수정하는 것이 불가능하다.** 이때 구조체에서 var로 선언된 변수를 수정하기 위해서는 mutating이라는 키워드로 메서드를 선언해야한다. 이때는 self 키워드를 사용하지 않아도 변수에 접근할 수 있다.&#x20;
 
 
 
@@ -90,12 +332,6 @@ func performRequest(urlString: String)
 performRequest(with: urlString)
 
 ```
-
-####
-
-### Order of mathematical operations
-
-대괄호, 제곱, 곱셈 or 나눗셈, 플러스 or 마이너스 순서로 계산한다. 주의할점은 컴퓨터가 같은 우선순위를 계산할 경우 왼쪽에서 부터 차례대로 연산하게 된다
 
 
 
@@ -284,54 +520,6 @@ Any 모든 타입을 포괄하는 데이터 타입
 AnyObject 클래스로 생성된 형태만 수용하는 데이터 타입
 
 NsObject 오직 NS type만 수용
-
-
-
-### Loop
-
-일련의 작업을 순서대로 수행한다.
-
-```swift
-let fruitBasket = ["Apple", "Orange", "Pear"]
-let fruitBasket2: Set = ["Apple", "Orange", "Pear"]
-let contacts = ["Adam": 12345678, "James": 9876512]
-let titleText = "Flash"
-let closeRange = 1...5
-
-// 배열, 문자열 각 구성 요소 순서대로 순회
-for latter in titleText {
-}
-
-// 효율적인 방식으로 순회(순서 보장 X)
-for fruit in fruitBasket2 {
-}
-
-// 
-for person in contacts {
-	print(person.key)
-	print(person.value)
-}
-
-// use range operator
-for number in 1...5 {
-}
-
-// 5번 순회
-for _ in closeRange {
-}
-
-// isTrue가 false가 될때까지 무한 반복
-// 사용시 주의가 필요하고 종료할 수 있는 원포인트를 꼭 지정해야한다.
-// 얼마나 걸릴지 모르는 작업을 처리할 때 사용한다.
-while isTrue {
-}
-```
-
-
-
-### Set
-
-컬렉션 타입중 하나로 배열과 다르게 순서를 보장하지 않는다.
 
 
 
