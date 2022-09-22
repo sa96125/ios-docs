@@ -1,5 +1,17 @@
 # Implementations
 
+### Initial View Controller
+
+해당 뷰 컨트롤러를 누르고 에트리뷰트 항목 체크
+
+
+
+### Add navigation bar
+
+\[editor] - \[embed in] - \[navigation controller]
+
+
+
 ### Create Label with UIKit
 
 ```swift
@@ -360,3 +372,99 @@ self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
 ### SwiftUI Font 추가하는 방법
 
 xcode13에서 plist파일이 제거 되었기때문에 targets > Info > Custom iOS Target Properties에서 Fonts provided by application를 추가한 후 디렉토리에 추가된 Info파일에서 <폰트이름>.ttf파일을 추가한다.
+
+
+
+### Create Alert
+
+```swift
+@IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+				// 서로다른 클로저에서 사용될 변수
+        var textField = UITextField()
+        
+				// 얼럿 창
+        let alert = UIAlertController(title: "Add new Today Item", message: "", preferredStyle: .alert)
+        
+				// 기본 버튼 눌렸을 때 액션
+        let action = UIAlertAction(title: "Add Item", style: .default) { action in
+            // what will happen once the user clicks the Add Item button on our UIAlert
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        
+        // 처음 텍스트 입력창이 뜰 때 트리거.
+        alert.addTextField { alertTextField in
+            textField = alertTextField
+        }
+        
+				// 액션 추가
+        alert.addAction(action)
+        
+				// 얼럿 창 오픈
+        present(alert, animated: true, completion: nil)
+    }
+```
+
+
+
+### Persistent memory store
+
+1.  NSUserDefaults
+
+    데이터베이스로서 사용하면 안된다. pList로서 밑에 예시들 중 하나만 호출한다하더라도 전체리스트를 다 가져온다. 엄청난 양의 데이터를 저장하고 사용한다면 시간적, 성능적 저하 요소가 될 수 있다는 것을 기억하자.
+
+    ```swift
+    let defaults = UserDefaults.standard
+
+    defaults.set(0.24, forKey: "Volume")
+    defaults.set(true, forKey: "MusicOn")
+    defaults.set("Angela", forKey: "PlayerName")
+    defaults.set(Date(), forKey: "AppLastOpendByUser")
+    defaults.set([1,2,3], forKey: "myArray")
+    defaults.set(["name": "Jake"], forKey: "myDictionary")
+
+    let voluem = default.float(forKey: "Voluem")
+    let appLastOpen = defaults.object(forKey: "AppLastOpenedByUser")
+    let myArray = default.array(forKey: "myArray") as! [Int]
+    let myDictionary = defaults.object(forKey: "myDictionary")
+
+    // 실전 사용
+    // 저장소 생성
+    let defaults = UserDefaults.standard
+
+    // 데이터를 저장할 때
+    self.defaults.set(self.itemArray, forKey: "TodoListArray")
+
+    // 화면 로드시 불러오기
+    if let items = (defaults.array(forKey: "TodoListArray") as? [String]) {
+        itemArray = items
+    }
+    ```
+
+
+
+### 셀 끝에 체크박스, 인포버튼 옵션 추가하기
+
+1. \[attribute] - \[Accessary]
+2. code
+
+```swift
+if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
+    tableView.cellForRow(at: indexPath)?.accessoryType = .none
+} else {
+    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+}
+```
+
+
+
+### UITableViewController
+
+기존에는 ViewController에서 사용하였기에 extention을 사용하여 : UITableViewDataSource, : UITableViewDelegate를 상속해야했지만 UITableViewController자체 클래스를 사용하면 확장할 필요 없이 바로 사용할 수 있다.
+
+
+
+### StoryBoard 와 Controller 연동
+
+클래스 네임 변경

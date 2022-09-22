@@ -38,3 +38,21 @@
 *   #### nib must contain exactly one top level object which must be a UITableViewCell instance'
 
     Cell.xib 파일 안에 한개이상의 뷰가 있어서 발생하는 에러, TableCell 외의 뷰는 삭제함으로서 에러 해결가능.
+
+
+
+*   #### TableView cell bug.
+
+    dequeueReusableCell을 사용하면 cell가 화면에서 사라지면 없어진 셀의 옵션을 그대로 데이터와 함께 재사용된다. 그렇다고 UITableViewCell을 쓸수 없는 게 UITableViewCell로 생성한 셀은 화면에서 사라지면 메모리에서 해제되고 다시화면에 보이면 새로운 셀을 생성하기 때문에 셀에 적용한 옵션이 사라진다. 따라서 셀과 셀의 특성을 연결하지 않고 데이터와 셀의 특징을 연결하여 사용하여 이 문제를 해결해야한다.
+
+
+
+*   **\[Assert] UINavigationBar decoded as unlocked for UINavigationController, or navigationBar delegate set up incorrectly. Inconsistent configuration may cause problems.**
+
+    ios16 업데이트 후 발생하는 이슈.
+
+
+
+*   **iOS 13에서 Navigation controller의 bar tint를 바꿔도 navigation bar 색이 변하지 않는 문제**
+
+    코드로 틴트를 변경하여 문제 해결
