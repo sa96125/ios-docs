@@ -56,3 +56,15 @@
 *   **iOS 13에서 Navigation controller의 bar tint를 바꿔도 navigation bar 색이 변하지 않는 문제**
 
     코드로 틴트를 변경하여 문제 해결
+
+
+
+*   #### 키보드 뜨면 입력창이 가려지는 문제
+
+    각각의 디바이스가 가진 키보드 디자인이 달라 일일히 하드코딩해야할까? nope IQKeyboardManager 라이브러리를 사용해보자.
+
+
+
+*   #### Main.storyboard에 포함된 ViewController에서 assistant 코드파일이 나오지 않을 때,
+
+    보통 자동으로 추적하지만 별로도 추가한 경우에는 StoryBoard에 추가한 viewController의 클래스네임과 컨트롤러 파일의 이름이 같도록 수정한다.

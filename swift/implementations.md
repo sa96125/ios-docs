@@ -1,18 +1,6 @@
 # Implementations
 
-### Initial View Controller
-
-해당 뷰 컨트롤러를 누르고 에트리뷰트 항목 체크
-
-
-
-### Add navigation bar
-
-\[editor] - \[embed in] - \[navigation controller]
-
-
-
-### Create Label with UIKit
+### Label
 
 ```swift
 override func viewDidLoad() {
@@ -34,28 +22,7 @@ override func viewDidLoad() {
 }
 ```
 
-####
 
-### Navigating viewController
-
-```swift
-// 다른 페이지(VC) 보기
-self.present(secondVC, animated:ture, completion: nil)
-```
-
-
-
-### Dark mode
-
-시스템 컬러를 사용하면 운영체제가 지원하는 다크모드를 사용할 수 있다. 커스텀 컬러를 다크모드와 사용하기 위해서는 Assets에서 플러스 버튼을 눌러 Color Set을 지정하면 된다.
-
-####
-
-### Avoid of pixelate Background
-
-Asset에서 1x 2x 3x이미지 변환하는 방법, 벡터 파일을 사용하는 방법이 있다. 백터파일을 사용할 때 Vector Resizing이 가능하게하고 Single scale이 되도록 옵션을 변경한다. 벡터파일로 모든 해상도를 커버할 수 있으니까.
-
-####
 
 ### TextField
 
@@ -93,40 +60,6 @@ searchTextField.delegate = self
         searchTextField.text = ""
         searchTextField.placeholder = "Search"
     }
-```
-
-
-
-### Cocoa Touch
-
-UIKit 뿐만 아니라 애플에서 만든 라이브러리를 사용할 수 있다. 이를 활용하여 멀티 페이지를 설정하고 세그웨이 및 네비게이팅할 수 있게 된다. 세그웨이는 스크린에 나타날 화면을 애니메이션하는 방법을 말한다.
-
-디자인 된 View Controller를 클릭(노란색네모 클릭)하고 Tab(identify)에서 커스텀 클래스를 CoCoa파일로 만든 클래스를 연동한다.
-
-or
-
-```swift
-// one page
-self.performSegue(withIdentifier: "goToResult", sender: self)
-```
-
-or
-
-```swift
-// multi page
-// mainController(cocoa페이지를 호출하는)
-override func prepare() {
-	if segue.identifier == "goToResult {
-
-		// downcasting by as, 왜냐면 prepare를 호춣하면 기본적으로 UIController를 가져오는데
-		// 이때 우리가 ResultViewController나 bmiValue가 있는지 모르기 때문
-		let destinationVC = segue.destination as! ResultViewController
-		destinationVC.bmiValue = "0.0"
-}
-
-// secondController(cocoa페이지에서)
-// go back to previous page
-self.dismiss(animated: true, completion: nil)
 ```
 
 
@@ -175,27 +108,6 @@ locationManager.startUpdatingLocation()
 
 
 
-### BarButton
-
-네비게이션바에서 사용하는 버튼
-
-
-
-### Navigation
-
-```swift
-// 네비게이션 타이틀
-title = "⚡️FlashChat"
-
-// 백버튼 없애기
-navigationItem.hidesBackButton = true
-
-// 메인 화면으로 돌아가기
-navigationController?.popToRootViewController(animated: true)
-```
-
-
-
 ### UITableView
 
 데이터를 리스트형태로 보여주는 오브젝트이다. 메일, 챗뷰로사용된다. 리스트형 데이터를 표현하는 UI 컴포넌트이다. 입력 컴포넌트와 마찬가지로 델리게이션으로 수행된다. 각각의 요소는 UITableCell로 구성되어 있다. 기본 스타일, 선택시 변경사항등을 지정하여 사용할 수 있다. 셀(아이템)의 갯수로 테이블을 정의하고 각 셀에 포함될 데이터를 가공하여 넣는다.
@@ -238,8 +150,6 @@ extension ChatViewController: UITableViewDelegate {
 3. pick sub class UITableViewCell
 4. check xib file
 
-####
-
 ```swift
 
 // Xip - Nip
@@ -262,6 +172,149 @@ cell.label.text = messages[indexPath.row].body
 2. StackView(label, ImageView)
 3. 스택뷰 Alignment Top , Spacing , Constraint 조정
 4. Label Lines 0 , Constraint 조정
+
+
+
+### UITableViewCell Option
+
+{% hint style="info" %}
+\[attribute] - \[Accessary]
+{% endhint %}
+
+```swift
+if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
+    tableView.cellForRow(at: indexPath)?.accessoryType = .none
+} else {
+    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+}
+```
+
+
+
+### UITableViewController
+
+기존에는 ViewController에서 사용하였기에 extention을 사용하여 : UITableViewDataSource, : UITableViewDelegate를 상속해야했지만 UITableViewController자체 클래스를 사용하면 확장할 필요 없이 바로 사용할 수 있다.
+
+
+
+### Initial View Controller
+
+{% hint style="info" %}
+main.storyboard -> viewController - \[attribute] - \[check initial view]
+{% endhint %}
+
+
+
+### Navigation bar
+
+Barbutton object를 네비게이션에 추가하여 사용 가능하다.
+
+{% hint style="info" %}
+\[EDITOR] - \[embed in] - \[navigation controller]
+{% endhint %}
+
+```swift
+// 네비게이션 타이틀
+title = "⚡️FlashChat"
+
+// 백버튼 없애기
+navigationItem.hidesBackButton = true
+
+// 메인 화면으로 돌아가기
+navigationController?.popToRootViewController(animated: true)
+```
+
+
+
+### Navigating viewController
+
+1\. 현재 페이지(VC)에서 다른 페이지 띄우기
+
+```swift
+self.present(secondVC, animated:ture, completion: nil)
+```
+
+2\. .cocoatouch&#x20;
+
+UIKit 뿐만 아니라 애플에서 만든 라이브러리를 사용할 수 있다. 이를 활용하여 멀티 페이지를 설정하고 세그웨이 및 네비게이팅할 수 있게 된다. 세그웨이는 스크린에 나타날 화면을 애니메이션하는 방법을 말한다.
+
+디자인 된 View Controller를 클릭(노란색네모 클릭)하고 Tab(identify)에서 커스텀 클래스를 CoCoa파일로 만든 클래스를 연동한다.
+
+```swift
+// one page
+self.performSegue(withIdentifier: "goToResult", sender: self)
+
+// multi page
+// mainController(cocoa페이지를 호출하는)
+override func prepare() {
+	if segue.identifier == "goToResult {
+
+		// downcasting by as, 왜냐면 prepare를 호춣하면 기본적으로 UIController를 가져오는데
+		// 이때 우리가 ResultViewController나 bmiValue가 있는지 모르기 때문
+		let destinationVC = segue.destination as! ResultViewController
+		destinationVC.bmiValue = "0.0"
+}
+
+// secondController(cocoa페이지에서)
+// go back to previous page
+self.dismiss(animated: true, completion: nil
+```
+
+
+
+### Dark mode
+
+시스템 컬러를 사용하면 운영체제가 지원하는 다크모드를 사용할 수 있다. 커스텀 컬러를 다크모드와 사용하기 위해서는 Assets에서 플러스 버튼을 눌러 Color Set을 지정하면 된다.
+
+
+
+### Avoid of pixelate Background
+
+Assets에서 x1 x2 x3이미지 변환하는 방법, 벡터 파일을 사용하는 방법이 있다. 백터 파일의 경우, Vector Resizing, Single scale이 되도록 옵션을 변경하면 하나의 파일로 모든 해상도를 커버할 수 있다.
+
+
+
+### Scroll
+
+indexPath 오브젝트로 현재 1번째 섹션에 있는 마지막 리스트 아이템 인덱스를 가져온다. 현제 테이블 뷰에 섹션이 하나 박에 없어서 0 으로 입력한다. 이 후 테이블 뷰 스크롤 메서드를 호출하는데 해당 인덱스로 이동하는데 애니메이션을 사용할지 말지에 대해 옵션을 기입한다.
+
+```swift
+let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+```
+
+
+
+### Alert
+
+```swift
+@IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+	// 서로다른 클로저에서 사용될 변수
+        var textField = UITextField()
+        
+	// 얼럿 창
+        let alert = UIAlertController(title: "Add new Today Item", message: "", preferredStyle: .alert)
+        
+	// 기본 버튼 눌렸을 때 액션
+        let action = UIAlertAction(title: "Add Item", style: .default) { action in
+            // what will happen once the user clicks the Add Item button on our UIAlert
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        
+        // 처음 텍스트 입력창이 뜰 때 트리거.
+        alert.addTextField { alertTextField in
+            textField = alertTextField
+        }
+        
+	// 액션 추가
+        alert.addAction(action)
+        
+	// 얼럿 창 오픈
+        present(alert, animated: true, completion: nil)
+}
+```
 
 
 
@@ -318,6 +371,21 @@ db.collection(K.FStore.collectionName).getDocuments { (querySnapshot, error) in
     }
 }
 
+
+// 현재 유저 확인 후 스타일
+if message.sender == Auth.auth().currentUser?.email {
+    cell.leftImageView.isHidden = true
+    cell.rightImageView.isHidden = false
+    cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.lightPurple)
+    cell.label.textColor = UIColor(named: K.BrandColors.purple)
+} else {
+    cell.leftImageView.isHidden = false
+    cell.rightImageView.isHidden = true
+    cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.purple)
+    cell.label.textColor = UIColor(named: K.BrandColors.lightPurple)
+}
+
+
 // 데이터 읽고 쓰기 인증 제한
 // 아래는 기본 규칙 세트의 몇 가지 예입니다. 유효한 규칙이지만 프로덕션 애플리케이션에는 권장되지 않습니다.
 // Allow read/write access on all documents to any user signed in to the application
@@ -332,139 +400,174 @@ service cloud.firestore {
 
 
 
-### 키보드 뜨면 입력창이 가려지는 문제
-
-각각의 디바이스가 가진 키보드 디자인이 달라 일일히 하드코딩해야할까? nope IQKeyboardManager 라이브러리를 사용해보자.
-
-
-
-
-
-### 로그인 유저 Style
-
-```swift
-if message.sender == Auth.auth().currentUser?.email {
-            cell.leftImageView.isHidden = true
-            cell.rightImageView.isHidden = false
-            cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.lightPurple)
-            cell.label.textColor = UIColor(named: K.BrandColors.purple)
-        } else {
-            cell.leftImageView.isHidden = false
-            cell.rightImageView.isHidden = true
-            cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.purple)
-            cell.label.textColor = UIColor(named: K.BrandColors.lightPurple)
-        }
-```
-
-
-
-### 스크롤 업
-
-indexPath 오브젝트로 현재 1번째 섹션에 있는 마지막 리스트 아이템 인덱스를 가져온다. 현제 테이블 뷰에 섹션이 하나 박에 없어서 0 으로 입력한다. 이 후 테이블 뷰 스크롤 메서드를 호출하는데 해당 인덱스로 이동하는데 애니메이션을 사용할지 말지에 대해 옵션을 기입한다.
-
-```swift
-let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
-self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
-```
-
-
-
-### SwiftUI Font 추가하는 방법
-
-xcode13에서 plist파일이 제거 되었기때문에 targets > Info > Custom iOS Target Properties에서 Fonts provided by application를 추가한 후 디렉토리에 추가된 Info파일에서 <폰트이름>.ttf파일을 추가한다.
-
-
-
-### Create Alert
-
-```swift
-@IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
-				// 서로다른 클로저에서 사용될 변수
-        var textField = UITextField()
-        
-				// 얼럿 창
-        let alert = UIAlertController(title: "Add new Today Item", message: "", preferredStyle: .alert)
-        
-				// 기본 버튼 눌렸을 때 액션
-        let action = UIAlertAction(title: "Add Item", style: .default) { action in
-            // what will happen once the user clicks the Add Item button on our UIAlert
-            self.itemArray.append(textField.text!)
-            self.tableView.reloadData()
-        }
-        
-        // 처음 텍스트 입력창이 뜰 때 트리거.
-        alert.addTextField { alertTextField in
-            textField = alertTextField
-        }
-        
-				// 액션 추가
-        alert.addAction(action)
-        
-				// 얼럿 창 오픈
-        present(alert, animated: true, completion: nil)
-    }
-```
-
-
-
 ### Persistent memory store
 
-1.  NSUserDefaults
+1\. NSUserDefaults
 
-    데이터베이스로서 사용하면 안된다. pList로서 밑에 예시들 중 하나만 호출한다하더라도 전체리스트를 다 가져온다. 엄청난 양의 데이터를 저장하고 사용한다면 시간적, 성능적 저하 요소가 될 수 있다는 것을 기억하자.
-
-    ```swift
-    let defaults = UserDefaults.standard
-
-    defaults.set(0.24, forKey: "Volume")
-    defaults.set(true, forKey: "MusicOn")
-    defaults.set("Angela", forKey: "PlayerName")
-    defaults.set(Date(), forKey: "AppLastOpendByUser")
-    defaults.set([1,2,3], forKey: "myArray")
-    defaults.set(["name": "Jake"], forKey: "myDictionary")
-
-    let voluem = default.float(forKey: "Voluem")
-    let appLastOpen = defaults.object(forKey: "AppLastOpenedByUser")
-    let myArray = default.array(forKey: "myArray") as! [Int]
-    let myDictionary = defaults.object(forKey: "myDictionary")
-
-    // 실전 사용
-    // 저장소 생성
-    let defaults = UserDefaults.standard
-
-    // 데이터를 저장할 때
-    self.defaults.set(self.itemArray, forKey: "TodoListArray")
-
-    // 화면 로드시 불러오기
-    if let items = (defaults.array(forKey: "TodoListArray") as? [String]) {
-        itemArray = items
-    }
-    ```
-
-
-
-### 셀 끝에 체크박스, 인포버튼 옵션 추가하기
-
-1. \[attribute] - \[Accessary]
-2. code
+데이터베이스로서 사용하면 안된다. pList로서 밑에 예시들 중 하나만 호출한다하더라도 전체리스트를 다 가져온다. 엄청난 양의 데이터를 저장하고 사용한다면 시간적, 성능적 저하 요소가 될 수 있다는 것을 기억하자.
 
 ```swift
-if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-    tableView.cellForRow(at: indexPath)?.accessoryType = .none
-} else {
-    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+let defaults = UserDefaults.standard
+
+defaults.set(0.24, forKey: "Volume")
+defaults.set(true, forKey: "MusicOn")
+defaults.set("Angela", forKey: "PlayerName")
+defaults.set(Date(), forKey: "AppLastOpendByUser")
+defaults.set([1,2,3], forKey: "myArray")
+defaults.set(["name": "Jake"], forKey: "myDictionary")
+
+let voluem = default.float(forKey: "Voluem")
+let appLastOpen = defaults.object(forKey: "AppLastOpenedByUser")
+let myArray = default.array(forKey: "myArray") as! [Int]
+let myDictionary = defaults.object(forKey: "myDictionary")
+
+// 실전 사용
+// 저장소 생성
+let defaults = UserDefaults.standard
+
+// 데이터를 저장할 때
+self.defaults.set(self.itemArray, forKey: "TodoListArray")
+
+// 화면 로드시 불러오기
+if let items = (defaults.array(forKey: "TodoListArray") as? [String]) {
+    itemArray = items
 }
 ```
 
 
 
-### UITableViewController
+2\. SandBoxing
 
-기존에는 ViewController에서 사용하였기에 extention을 사용하여 : UITableViewDataSource, : UITableViewDelegate를 상속해야했지만 UITableViewController자체 클래스를 사용하면 확장할 필요 없이 바로 사용할 수 있다.
+실행중인 다른 앱에서 데이터의 접근을 막는다. 오직 실행중인 하나의 앱에서만 관리되는 데이터 폴더로 생각할 수 있다. 이 퍼스널 데이터는 랩톱 또는 클라우드 환경에 싱크되어 있기 새로운 장치를 구매하거나 운영체제가 업데이트 되더라도 안전하게 접근하여 사용할 수 있다.
+
+UserDefaults의 경우, 표준 데이터 타입만 취급하여 커스텀 데이터 양식은 저장할 수 없다는 단점이 있다. 하지만 sandBox를 이용하여 해당 데이터 타입을 .plist로 디코드하여 경로에 저장하기 때문에 다채로운 타입 정의 및 저장이 가능하다. 하지만 이또한 마찬가지로 대용량 데이터를 처리하기에 는 한계가 있기에 간단한 데이터를 다룰때만 사용한다.
+
+```swift
+let dataFilePath = FileManager
+        .default
+        .urls(for: .documentDirectory, in: .userDomainMask)
+        .first?
+        .appendingPathComponent("Items.plist")
+
+// Encoding to plist
+func saveitem() {
+    let encoder = PropertyListEncoder()
+    
+    do {
+        let data = try encoder.encode(self.itemArray)
+        try data.write(to: self.dataFilePath!)
+    } catch {
+        print("Error encoding item array, \\(error)")
+    }
+
+    self.tableView.reloadData()
+}
+
+// Decoding to Object
+func loadItems() {
+    if let data = try? Data(contentsOf: dataFilePath!) {
+        let decoder = PropertyListDecoder()
+        
+        do {
+            itemArray = try decoder.decode([TodoItem].self, from: data)
+        } catch {
+            print(error)
+        }
+        
+    }
+}
+
+```
+
+\
+3\. Keychain
+
+더 안전하고 비밀스러운 정보를 저장할 때 사용할 수 있다. 유저의 개인정보, 비밀번호와 같은 것을 저장이 필요하다면 고려할 수 있다.
+
+\
+4\. Core Data
+
+이전에는 간단한 싱글 테이블에 적용하였다. 하지만 만약 규모가 커지고 많은 데이터양이 저장되어야할 때, 많은 테이블이 추가되고 연관 관계에 대한 정의가 필요하게 된다. 이때 필요한 것이 Database로 더 복잡한 태스크의 처리할 수 있고 쿼리를 사용해 데이터를 찾는 작업이 쉽게 가능해진다.
+
+IOS 진영에서 가장 일반적인 데이터 베이스 두가지가 Core Data그리고 Realm이다. Core Datas는 오랜시간동안 사랑받아왔고 표준적으로 사용하는 DB이다. 또한 Realm을 더 빠르고 효과적으로 데이터베이스를 처리한다.
+
+기존 프로젝트에서 사용하는 방법은 CodeData 체크 후 생성하는 프로젝트의 Appdelegate에서 필요한 코드를 가져올 수 있다. 기본 적인 용어를 봤을 때 DB에 포함된 Entity는 Class 또는 Table로 매칭할 수 있고 Attribute는 Property와 동일하게 취급한다.
+
+| OOP World | Core Data World | Database World |
+| --------- | --------------- | -------------- |
+| class     | entity          | table          |
+| property  | attribute       | field          |
+| Item      | NSManagedObject | row            |
+
+Core Data 프레임 워크에서는 데이터베이스에 직접적으로 접근할 수 없는데 이때 context라는 중간계층을 활용하여 C.R.U.D를 수행할 수 있게 된다.
 
 
 
-### StoryBoard 와 Controller 연동
+1\. codeData 체크 후 생성하는 프로젝트의 Appdelegate에서 필요한 코드를 가져온다. \
+2\. \[data model inspector] - \[class], codeData파일의 속성을 지정한다.\
+\*codegen - \[class Definition]은 컴퓨터 내에 자동으로 swift파일을 만들어 놓고 사용\
+\*codegen - \[category Extension]은 내 프로젝트 폴더내에 꼭 만들어 사용해야한다.
 
-클래스 네임 변경
+```swift
+// MARK: - Core Data stack
+// NSPersistentContainer는 SQLite 베이스로 시작할 때 호출하는 헬퍼 메서드
+lazy var persistentContainer: NSPersistentContainer = {
+    
+    let container = NSPersistentContainer(name: "DataModel")
+    container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        if let error = error as NSError? {
+            fatalError("Unresolved error \\(error), \\(error.userInfo)")
+        }
+    })
+    return container
+}()
+
+// MARK: - Core Data Saving support
+// 데이터를 저장하는 헬퍼 메서드
+func saveContext () {
+    let context = persistentContainer.viewContext
+    if context.hasChanges {
+        do {
+            try context.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \\(nserror), \\(nserror.userInfo)")
+        }
+    }
+}
+
+// AppDelegate의 컨텍스트를 가져온다.
+let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+// 해당 저장소의 클래스를 생성
+Item(context: context)
+
+// 저장
+func saveitem() {
+    do {
+        try context.save()
+    } catch {
+        print("Error saving context \\(error)")
+    }
+
+    self.tableView.reloadData()
+}
+
+// 읽기
+func loadItems() {
+    let request : NSFetchRequest<Item> = Item.fetchRequest()
+    
+    do {
+        itemArray = try context.fetch(request)
+    } catch {
+        print("Error Fetching Data from context \\(error)")
+    }
+}
+
+// 삭제
+func deleteItem() {
+		context.delete(itemArray[indexPath.row])
+		itemArray.remove(at: indexPath.row)
+}
+```
+

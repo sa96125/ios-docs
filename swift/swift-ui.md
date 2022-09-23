@@ -82,15 +82,19 @@ NavigationView {
 
 SwiftUI는 이렇게 접근가능한 상태의 리스트를 가지고 계속 모니터링하여 화면에 업데이트하는 작동방식을 가졌다.
 
-###
+
 
 ### Identifiable Protocol
 
 리스트가 아이디에 따른 순서를 인식할 수 있게 하는 프로토콜이다.
 
+
+
 ### UIViewRepresntable Protocal
 
 스위프트 UI에서 UIKit을 사용할 수 있다.
+
+
 
 ### WebView
 
@@ -116,3 +120,9 @@ struct WebView: UIViewRepresentable {
     }
 }
 ```
+
+
+
+### Custom Font
+
+xcode13에서 plist파일이 제거 되었기때문에 targets > Info > Custom iOS Target Properties에서 Fonts provided by application를 추가한 후 디렉토리에 추가된 Info파일에서 <폰트이름>.ttf파일을 추가한다.

@@ -1,8 +1,8 @@
-# Core Data
+# Fundamentals
 
 ### var, let
 
-값과 이름을 연결하는 키워드이다. 상수(let)은 값이 할당되면 변경할 수 없지만 변수(var)를 사용하면 변경 할 수 있다.&#x20;
+값과 이름을 연결하는 키워드로 _`let`_(상)은 값이 할당되면 변경할 수 없지만 _`var`_(변수)를 사용하면 변경 할 수 있다.&#x20;
 
 ```swift
 // 쉼표를 구분하여 한 줄에 여러 상수 또는 변수 선언 가능
@@ -28,23 +28,22 @@ print(🐶)
 
 ### Immutability
 
-let과 같은 키워드를 사용하면 값의 수정이 불가능한데 이를 immutable이라고 한다. 밑에서 설명 구조체를 예로들면, 구조체를 구성하는 프로퍼티 변수를 수정하는 일이 있을 수 있다. 실제 인스턴스에서 이 변수를 수정하는 일이 발생하면 메서드를 사용해야하는데 이때 메서드 속에는 self 키워드로 구조체 변수에 접근하는 로직이 작성된다. **주의할 점은 구조체의 self는 인스턴스 생성시 let으로 생성되기 때문에 변수를 수정하는 것이 불가능하다.** 이때 구조체에서 var로 선언된 변수를 수정하기 위해서는 mutating이라는 키워드로 메서드를 선언해야한다. 이때는 self 키워드를 사용하지 않아도 변수에 접근할 수 있다.&#x20;
+_`let`_과 같은 키워드를 사용하면 값의 수정이 불가능한데 이를 _immutable하다고 표현한다_. 하나의 예를 들면 구조체를 구성하는 프로퍼티 변수를 수정하는 일이 있을 수 있다. 실제 인스턴스에서 이 변수를 수정하는 일이 발생하면 메서드를 사용해야하는데 일반적으로 이 과정에서는 메서드 안에 _`self`_ 키워드로 구조체 변수에 접근하는 로직이 작성된다. **주의할 점은 구조체의 **_**`self`**_**는 인스턴스 생성시 **_**`let`**_**으로 생성되기 때문에 변수를 수정하는 것이 불가능하다.**&#x20;
+
+물론 구조체에 한해서 변경 가능한 방법이 없지는 않다. 이때 구조체에서 _`var`_로 선언된 변수를 수정하기 위해서는 _`mutating`_이라는 키워드를 앞에 붙 메서드를 선언해야한다. 이때는 _`self`_ 키워드를 사용하지 않아도 변수에 접근할 수 있게 된다. 핵심은 상수 선언 키워드 _`let`_을 사용시 해당 메모리 저장된 데이터는 수정이 불가능하다는 것을 기억하자.&#x20;
 
 
 
 ### **Operators**
 
-대괄호, 제곱, 곱셈 or 나눗셈, 플러스 or 마이너스 순서로 계산한다. 주의할점은 컴퓨터가 같은 우선순위를 계산할 경우 왼쪽에서 부터 차례대로 연산하게 된다
+대괄호, 제곱, 곱셈 or 나눗셈, 플러스 or 마이너스 우선순로 계산한다. 주의할점은 컴퓨터가 같은 우선순위를 계산할 경우 왼쪽에서 부터 차례대로 연산하게 된다. C 및 Objective-C의 산술 연산자와 달리 Swift 산술 연산자는 기본적으로 값이 오버플로되는 것을 허용하지않는다. 필요에 따라 ampersand(&)로 시작하는 연산 사용해야한다.(&+)
 
-* assignment operator
+* assignment operator (=)
 * equal to operator (==)
 * Arithmetic operators (+, -, \*, /, %)
 * range operators(…, ..<)
 
 ```swift
-// C 및 Objective-C의 산술 연산자와 달리 Swift 산술 연산자는 기본적으로 값이 오버플로되는 것을 허용하지않는다.
-// 필요에 따라 ampersand(&)로 시작하는 연산 사용해야한다.(&+)
-
 // string 연결 가능
 "hello, " + "world"
 
@@ -56,6 +55,9 @@ n == 0 ? "none" : "something"
 for name in names[...2] {
     print(name)
 }
+
+// 1~5까지 랜덤 숫
+Int.random(in:1...5)
 ```
 
 
@@ -435,6 +437,24 @@ struct WeatherModel {
 
 
 
+### Lazy
+
+변수명과 함께 사용되는 키워드이다. 호출할 때, 동작하는 코드를 담고 있다. 처음부터 코드를 셋업할 필요가 없다는 의미로 비록 늦게 실행될 수 있지만 실행과 동시에 메모리에 할당되어 이점을 가질 수 있다.
+
+```swift
+lazy var persistentContainer: NSPersistentContainer = {    
+    let container = NSPersistentContainer(name: "DataModel")
+    container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        if let error = error as NSError? {
+            fatalError("Unresolved error \\(error), \\(error.userInfo)")
+        }
+    })
+    return container
+}()
+```
+
+
+
 ### Type Alias
 
 미리 정의된 타입을 위한 약어. 이전에 Decodable타입은 Encodable타입과 동시에 사용할 수 없는데 이때 Codable을 사용하면 둘다 허용된 타입을 사용할 수 있다.
@@ -654,25 +674,25 @@ func sceneDidDisconnect(_ scene: UIScene) {
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
     }
 
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-    }
+func sceneDidBecomeActive(_ scene: UIScene) {
+    // Called when the scene has moved from an inactive state to an active state.
+    // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+}
 
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
+func sceneWillResignActive(_ scene: UIScene) {
+    // Called when the scene will move from an active state to an inactive state.
+    // This may occur due to temporary interruptions (ex. an incoming phone call).
+}
 
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-    }
+func sceneWillEnterForeground(_ scene: UIScene) {
+    // Called as the scene transitions from the background to the foreground.
+    // Use this method to undo the changes made on entering the background.
+}
 
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-    }
+func sceneDidEnterBackground(_ scene: UIScene) {
+    // Called as the scene transitions from the foreground to the background.
+    // Use this method to save data, release shared resources, and store enough scene-specific state information
+    // to restore the scene back to its current state.
+}
 ```
 
