@@ -141,6 +141,10 @@ extension ChatViewController: UITableViewDelegate {
 }
 ```
 
+{% hint style="info" %}
+delegate = self 코드를 대체하는 방법이 있다. 해당 UI컴포넌트를 command + 드래그하여 노란색아이콘에 드랍한 다음, Delegate를 선택한다.
+{% endhint %}
+
 
 
 ### Custom Design Of Cell
@@ -258,6 +262,112 @@ override func prepare() {
 // secondController(cocoa페이지에서)
 // go back to previous page
 self.dismiss(animated: true, completion: nil
+```
+
+
+
+### Search Bar
+
+마찬가지로 delegate Protocol을 사용하여 구현한다.
+
+```swift
+extension TodoListViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        loadItems(with: request, predicate: predicate)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // Excute this block when searchBar's text changed.
+        
+        if searchBar.text?.count == 0 {
+            loadItems()
+            
+            DispatchQueue.main.async {
+                // Ask to main queue run this methods that restoration searchBar states. before getting data
+                
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
+}
+```
+
+
+
+### Link Category to Items
+
+릴레이션이 연관된 데이터를 각 페이지에서 볼 수 있게 구현한다.
+
+1. 각각의 ViewController를 생성하고 Segue를 연결
+   * Segue에는 이동할 페이지의 이름을 기입한다.
+   * 각각의 ViewController에 class name를 연결한다.
+   * 만약 TableViewController일 경우 reusableCell 이름도 기입한다.
+2. Core Data 파일에 Entities와 Relations를 설정
+   * Attribute, Type, Optional
+   * Relationship, Destination, Inverse
+3. CategoryViewTable의 구현사항은 페이지가 로드되는 순간 카테고리 리스트가 보이고 해당 카테고리를 클릭하면 해당 카테고리 정보를 Items 페이지로 넘겨준다.
+
+```swift
+import UIKit
+import CoreData
+
+class CategoryViewController: UITableViewController {
+
+    **//  MARK: - Initial States -------------------------------------**    
+		//  categories
+		//  persistentContainer context from AppDeleate
+
+    
+
+    **//  MARK: - Initial Methods ------------------------------------**
+    //  loadCategories
+    
+
+    
+    **//  MARK: - Model Create Method --------------------------------**
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+				// Create Alert
+				// Set Alert Action
+    }
+    
+    
+    
+    **//  MARK: - TableView Datasource Methods -----------------------**
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    }
+    
+    
+    
+    **//  MARK: - TableView Delegate Methods -------------------------**
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+				// Change View
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Excute just before Change View
+				// Passing the required data to destinationVC
+    }
+    
+    
+    **//  MARK: - Data Manipulation Methods --------------------------**
+    func loadCategories(with request: NSFetchRequest<Category> = Category.fetchRequest()) {
+        // Fetch Categories
+				// Reload TableView 
+    }
+    
+    func saveCategory() {
+        // Save Categories
+				// Reload TableView 
+    }
 ```
 
 
@@ -568,6 +678,37 @@ func loadItems() {
 func deleteItem() {
 		context.delete(itemArray[indexPath.row])
 		itemArray.remove(at: indexPath.row)
+}
+```
+
+
+
+### NSPredicate
+
+Foundation Libray, 쿼리문을 작성할 때 사용하는 포맷
+
+```swift
+// NSPredicate Cheatcheet
+let predicate = NSPredicate(format: "title CONTAINS %@", searchBar.text!)
+
+// 실전
+func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
+        
+    let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+    
+    if let addtionalPredicate = predicate {
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, addtionalPredicate])
+    } else {
+        request.predicate = categoryPredicate
+    }
+    
+    do {
+        itemArray = try context.fetch(request)
+    } catch {
+        print("Error Fetching Data from context \\(error)")
+    }
+    
+    tableView.reloadData()
 }
 ```
 

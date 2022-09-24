@@ -98,6 +98,14 @@ secrets.txt
 
 
 
+### Founder에서 경로로 위치 이동
+
+{% hint style="info" %}
+command + shift + G
+{% endhint %}
+
+
+
 ### Navigation Stack
 
 editor > embeded-in > Navagatopm controller

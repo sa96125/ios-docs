@@ -224,6 +224,10 @@ Input만 있을 경우 (parameter: DataType)
 
 Output만 있을 경우 () returnArrow DataType { return Keyword value } 로 정의할 수 있다.
 
+{% hint style="info" %}
+선언부에 디폴트 값을 할당할 수 있다.
+{% endhint %}
+
 
 
 ### Error Handling
@@ -263,6 +267,10 @@ if age > 10 {
     assertionFailure("A person's age can't be less than zero.")
 }
 ```
+
+{% hint style="info" %}
+브레이크 포인트 지정하고, 콘솔 창에 print varName을 쳐서 변수 값을 확인할 수 있다.
+{% endhint %}
 
 
 
@@ -451,6 +459,34 @@ lazy var persistentContainer: NSPersistentContainer = {
     })
     return container
 }()
+```
+
+
+
+### get, set, didSet, willSet
+
+프로퍼티를 다채롭게 활용하는 방법이다.
+
+```swift
+// 입력된 값을 검증(validation)할 때 사용할 수 있다.
+var myProperty: Int {
+   get {
+      return _myProperty
+   }
+   set(newVal) {
+      _myProperty = newVal
+   }
+}
+
+// 값이 입력된 직전/후에 수행할 로직
+var myProperty: Int {
+   willSet {
+      loadItems()
+   }
+	 didSet {
+      loadItems()
+   }
+}
 ```
 
 
@@ -693,6 +729,26 @@ func sceneDidEnterBackground(_ scene: UIScene) {
     // Called as the scene transitions from the foreground to the background.
     // Use this method to save data, release shared resources, and store enough scene-specific state information
     // to restore the scene back to its current state.
+}
+```
+
+
+
+### Main Thread
+
+실행 중인 앱을 디버그 콘솔에서 일시정지하면 CPU, Memory, Network, Threads등 실제 사용하고 있는 자원들의 상태를 확인할 수 있다. 구체적으로 살펴보면 우리의 앱은 하나 이상의 Thread를 사용하고 있는 것을 확인 할 수 있다.
+
+실제 앱이 동작하는 동안 데이터를 가져와서 화면을 업데이트해야하는데, 네트워크 작업을 수행하고 있다면 데이터를 받아오는 동안 화면에서 수행할 수 있는 작업, 즉 사용자 인터렉션에 불편함을 가져올 수 있다. 따라서 이러한 요청은 백그라운드에서 다른 Thread에게 위임하고 실질적으로 보이는 화면에는 영향이 없어야한다. 이러한 책임을 맡고 있는 것이 Main Thread이다.
+
+```swift
+// Despatchqueue.main.async는 다른 쓰레드들에게 일을 할당 할 수 있는 관리자이다. 
+// 네트워크 작업으로 백그라운드에서 실행되는 코드 중 일부를 메인에서 처리할 수 있다.
+{
+    loadItems()
+    
+    DispatchQueue.main.async {
+        searchBar.resignFirstResponder()
+    }
 }
 ```
 

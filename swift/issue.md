@@ -68,3 +68,13 @@
 *   #### Main.storyboard에 포함된 ViewController에서 assistant 코드파일이 나오지 않을 때,
 
     보통 자동으로 추적하지만 별로도 추가한 경우에는 StoryBoard에 추가한 viewController의 클래스네임과 컨트롤러 파일의 이름이 같도록 수정한다.
+
+
+
+*   #### UISearchDisplayController is unavailable when deploying to iOS 13.0
+
+    스토리보드에 있는데 SearchDisplayController를 제거한다.
+
+
+
+* #### According to the [release notes for Xcode 14b3](https://developer.apple.com/documentation/xcode-release-notes/xcode-14-release-notes), the diagram view has been removed

@@ -2,7 +2,7 @@
 
 * [Swift](README.md)
   * [Background](swift/background.md)
-  * [Fundamentals](swift/fundamentals.md)
+  * [Fundamentals](swift/core-data.md)
   * [Data Structure & Algorithm](swift/data-structure-and-algorithm.md)
   * [Design Patterns](swift/design-patterns.md)
   * [Implementations](swift/implementations.md)
