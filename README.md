@@ -1,6 +1,2 @@
----
-layout: editorial
----
-
-# Swift
+# Background
 
