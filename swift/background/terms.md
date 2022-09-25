@@ -1,12 +1,6 @@
 # Terms
 
-### Code Sense
-
-코드 스니펫을 사용할 때 보여주는 심볼들을 말한다.
-
-
-
-### JSON(javascript object notation)
+### JSON(Javascript Object Notation)
 
 인터넷에서 데이터를 가볍고 효율적으로 전달할 수 있는 방식이다. 코드의 형태를 문자열로 감싸서 전달한다. 자바스크립트 객체 형태를 스위프트에서 사용하기위해서는 스위프트 객체 형태로 Parsing 작업을 거쳐야한다. 먼저 구조체를 만들고 Decodable 프로토콜을 받으면 JSONDecoder를 사용하여 스위프트에서 사용할 수 있게 된다.
 
@@ -23,6 +17,12 @@ func parseJSON(weatherData: Data) {
         }
     }
 ```
+
+
+
+### API(Application Programming Interface)
+
+명령어, 함수, 프로토콜, 객체의 집합으로서 프로그래머는 소프트웨어를 만들거나 다른 외부 시스템과 소통하기 위해 사용한다. 예를 들어, 애플기기의 기능을 사용하고 싶을 때 혹은 외부 서버의 데이터가 필요할 때 API를 호출할 수 있다.
 
 
 
@@ -56,6 +56,12 @@ ios13부터 사용가능한 아이콘으로서 자동 스케일, 백터화하여
 
 
 
+### Catalyst Project
+
+iPhone에서 개발한 것을 iPad, Mac에서 실행하고 빌드하는 것이 가능하다.
+
+
+
 ### Framework
 
 메인 ViewController를 제외한 다른 화면을 구성하여 컨트롤하기 위해서 SecondController : UIViewController 의 상속을 받아서 처리한다. Kit은 IOS 개발자를 위해 미리 만들어놓은 소스코드의 모음으로 기존에 스토리보드로 하던 작업을 코드만 사용하여 라벨, 텍스트, 이미지뷰에 접근 수정가능하다.
@@ -79,12 +85,18 @@ ios13부터 사용가능한 아이콘으로서 자동 스케일, 백터화하여
 
 
 
-### API(Application Programming Interface)
-
-명령어, 함수, 프로토콜, 객체의 집합으로서 프로그래머는 소프트웨어를 만들거나 다른 외부 시스템과 소통하기 위해 사용한다. 예를 들어, 애플기기의 기능을 사용하고 싶을 때 혹은 외부 서버의 데이터가 필요할 때 API를 호출할 수 있다.
+### OOP(Object Oriented Programming)
 
 
 
-### Catalyst Project
 
-iPhone에서 개발한 것을 iPad, Mac에서 실행하고 빌드하는 것이 가능하다.
+
+### FP(Functional Programming)
+
+
+
+###
+
+
+
+###

@@ -14,7 +14,7 @@
 
     > for문이 순회하는 시간이 엄청 빠르기에 거의 모든 문자가 동시에 시작하게되어 각 타이머가 끝나는 시점이 거의 동시에 완료되기 때문이다. 각 문자의 인덱스를 추출하여 딜레이 시간에 곱하여 시간을 조절하여 해결할 수 있다.
 
-****
+
 
 *   **\[boringssl] boringssl\_metrics\_log\_metric\_block\_invoke(153) Failed to log metrics** 메세지는 무엇을 의미할까?
 

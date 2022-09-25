@@ -170,7 +170,7 @@ cell.label.text = messages[indexPath.row].body
 
 
 
-![](../.gitbook/assets/Untitled.png)
+![](../../.gitbook/assets/Untitled.png)
 
 1. UIview ( label, ImageView )
 2. StackView(label, ImageView)
