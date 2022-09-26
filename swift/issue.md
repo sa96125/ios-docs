@@ -78,3 +78,14 @@
 
 
 * #### According to the [release notes for Xcode 14b3](https://developer.apple.com/documentation/xcode-release-notes/xcode-14-release-notes), the diagram view has been removed
+
+
+
+*   아래의 코드를 실행하면 `Cannot assign value of type 'Results<Category>' to type '[Category]’`에러가 뜨는데 어떻게 해결 할 수 있을까?
+
+    ```swift
+    // 카테고리 타입 전체 가져오는 쿼리
+    categories = realm.objects(Category.self)
+    ```
+
+    categories은 \[Category] 타입으로 선언되었다. 위의 코드를 실행하면 레움이 Results라는 자체의 타입을 반환하여 발생하는 에러다. 기존 타입을 Results로 변경하여 해결할 수 있다. 이탑은 쿼리에 의해 자동으로 업데이트 된다.

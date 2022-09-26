@@ -78,14 +78,10 @@ while isTrue {
 
 ```swift
 // nil이면 else 실행,
-guard condition != nil else {
-    code
-}
+guard condition != nil else { fatalError() }
 
 // optional binding
-guard let safeCondition = condition else {
-    code
-}
+guard let safeCondition = condition else { fatalError("Error occured") }
 
 ```
 

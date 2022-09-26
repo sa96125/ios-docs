@@ -90,23 +90,39 @@ lazy var persistentContainer: NSPersistentContainer = {
 프로퍼티를 다채롭게 활용하는 방법이다.
 
 ```swift
-// 입력된 값을 검증(validation)할 때 사용할 수 있다.
+// computed properties
+// 값을 읽고/쓸때 사용하는 로
 var myProperty: Int {
    get {
       return _myProperty
    }
-   set(newVal) {
-      _myProperty = newVal
+   set {
+      _myProperty = newValue
    }
 }
 
+// observed properties
 // 값이 입력된 직전/후에 수행할 로직
-var myProperty: Int {
+var myProperty: Int = 10 {
    willSet {
+      print(myProperty) // 10
+      print(newValue) // newValue
       loadItems()
    }
    didSet {
+      print(oldValue) // 10
+      print(myProperty) // newValue 
       loadItems()
+   }
+}
+
+// 실전
+var myProperty: Int = 10 {
+   didSet {
+      if myProperty > 18 {
+         print("invalid value, Set myProperty to 18")
+         myProperty = 18
+      }
    }
 }
 ```
