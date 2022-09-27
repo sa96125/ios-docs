@@ -86,6 +86,12 @@ iPhone에서 개발한 것을 iPad, Mac에서 실행하고 빌드하는 것이 �
 
 
 
+### cocoa touch class file vs swift file
+
+테이블뷰와 같이 xcode에 포함된 클래스를 사용한다면 cocoa touch로 만들고 커스텀으로 만드는 클래스는 swift로 생성한다.
+
+
+
 ### POP(Protocol Oriented Programming)
 
 1.  가볍고 안전하다
@@ -104,3 +110,11 @@ iPhone에서 개발한 것을 iPad, Mac에서 실행하고 빌드하는 것이 �
 
 
 ### OOP(Object Oriented Programming)
+
+
+
+
+
+### In App purchases
+
+30% 수수료 낸다. 인앱 구매 등록 조건은 Full apple Developer 자격이 있어야한다. 매년 $99의 결제가 필요하다. 이를 테스팅하기 위해서 실제 아이폰 장비가 필요하다, 시뮬레이터에서 인앱 결제는 동작하지 않는다.
