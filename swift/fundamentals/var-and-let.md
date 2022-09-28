@@ -127,3 +127,22 @@ var myProperty: Int = 10 {
 }
 ```
 
+
+
+### Access Control
+
+1. private\
+   해당 스코프 내에서만 접근할 수 있는 변수. 항상 변수를 선언할 때 이 키워드를 붙이는 습관을 들인다. 상태의 안전을 보장할 수 있다.
+2. fileprivate\
+   파일 내에서만 접근할 수 있는 변수.
+3. internal\
+   default, 앱(모듈) 내에서 사용할 수 있는 변수
+4. public\
+   다양한 모듈에서 사용할 수 있는 변수, 오버라이팅을 할 수 없다.\
+   API, SDK, Frameworks and Libraries
+5. open\
+   public+, 오버라이팅이 가능하며 모든 것을 사용할 수 있다.
+
+{% hint style="info" %}
+구조체를 사용하다가 필요에 따라 클래스로 변경하는 것처럼, Acess level 또한 필요에 따라 단계를 높여 사용하는 습관을 기르자.
+{% endhint %}
