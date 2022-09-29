@@ -7,13 +7,11 @@ description: >-
 
 # var and let
 
-프로그램에서 데이터에 접근하려면 의미를 부여한 이름을 사용해야합니다. 개발자는 선언된 이름을 통해 데이터를 읽거나 수정할 수 있게 되는데요. 스위프트에서는 이를 위해 2가지 키워드를 사용합니다. 바로 _<mark style="color:red;">**`var`**</mark>_ 과 _<mark style="color:red;">**`let`**</mark>_ 입니다. _<mark style="color:red;">**`var`**</mark>_ 키워드를 덧붙인 이름에 값을 할당하면 그 이름을 사용하여 언제든지 값을 변경할 수 있지만 _<mark style="color:red;">**`let`**</mark>_의 경우 초기에 한번 값이 할당되면 절대 변경할 수 없습니다.
+프로그램에서 데이터에 접근하려면 의미를 부여한 이름을 사용해야합니다. 개발자는 선언된 이름을 통해 데이터를 읽거나 수정할 수 있게 되는데요. 스위프트에서는 이를 위해 2가지 키워드를 사용합니다. _**var**_** 키워드는 언제든지 값의 변경을 허용하지만  **_**let**_**은 초기에 한번 값이 할당되면 절대 변경할 수 없습니다.**
 
 
 
 ```swift
-// MARK - 변수와 상수 예시 코드 1
-
 let numberOfBond = 007
 var numberOfAgent = 000
 
@@ -45,11 +43,7 @@ let PI = 3.14
 
 
 
-이 처럼 보존 되어야할 중요한 정보가 외부의 영향으로 훼손되었을 때 큰 문제를 발생 시킬 수 있습니다. 만약 내가 작성한 프로그램에서 데이터가 중요하다면 혹은 다양한 로직에서 사용된다면 애초에 _<mark style="color:red;">**`let`**</mark>_으로 선언하여 변경을 막 오류의 발생을 차단할 수 있겠네요!
-
-
-
-이를 전문 용어로 불. 변. 성(_Immutability_)라고 합니다. 더 깊게 설명할 필요성이 있지만, 이제 시작한 스위프트 공부를 어렵게 만들고 싶지 않네요ㅎ. 이미 중요한 내용을 알게 되었고, 현재는 상수는 imutable한 값, 변수는 mutable한 값이란 것만 이해하면 됩니다.
+이 처럼 보존 되어야할 중요한 정보가 외부의 영향으로 훼손되었을 때 큰 문제를 발생 시킬 수 있습니다. 만약 내가 작성한 프로그램에서 데이터가 중요하다면 혹은 다양한 로직에서 사용된다면 애초에 _let_으로 선언하여 변경을 막 오류의 발생을 차단할 수 있겠네요! 이를 전문 용어로 불변성(_Immutability_)라고 합니다. 지금 당장은 상수는 imutable한 값, 변수는 mutable한 값이란 것만 이해하면 됩니다.
 
 
 
@@ -59,18 +53,18 @@ _**`var`**_와 _**`let`**_중에 무엇을 사용해야하나라는 고민에 �
 
 
 
-다음으로 눈여겨 볼 것은 변수의 타입입니다. 앞서 언급했듯이 스위프트 언어는 매우 엄격한 타입을 요구합니다. 예를 들어, 사람은 숫자와 문자를 더하는 행동을 했을 때 잘못되었다는 것을 인지하지만 컴퓨터는 숫자인지 문자인지 판별할 수 없으니 그러지 못하죠. 그래서 데이터가 적절한 경우에 올바른 행동을 할 수 있도록 데이터와 함께 타입을 알려줘야합니다. 데이터에 타입을 명시하면 잘못된 코드를 작성 하였을 때, 컴파일러가 에러를 조기 발견할 수 있습니다.
+다음으로 눈여겨 볼 것은 변수의 타입입니다. 앞서 언급했듯이 스위프트 언어는 매우 엄격한 타입을 요구합니다. 예를 들어, 사람은 숫자와 문자를 더하는 행동을 했을 때 잘못되었다는 것을 인지하지만 컴퓨터는 숫자인지 문자인지 판별할 수 없으니 그러지 못하죠. 그래서 데이터가 경우에 따 올바른 행동을 할 수 있도록 데이터와 함께 타입을 알려줘야합니다. 데이터에 타입을 명시하면 잘못된 코드를 작성 하였을 때, 컴파일러가 에러를 조기 발견할 수 있습니다.
 
 
 
 ```swift
-// MARK - 변수와 상수 예시 코드 2
-
 var menu1 : String = "짜장면"
 var priceOfMenu1 : Int = 7000
 
+
 // error : menu1 변수는 문자열의 자료형만 담을 수 있어요.
 menu1 = 8500
+
 
 // error : 문자열과 숫자는 곱셈 연산이 불가능해요. 
 menu1 * priceOfMenu1
@@ -87,7 +81,7 @@ menu1 * priceOfMenu1
 
 ### Computed Variable
 
-스위프트의 변수에는 매뉴얼하게 할당하는 방법 외에도 자동으로 값을 할당 할 수 있습니다. computerted variable은 값 대신 코드를 작성합니다. **지정한 변수로 부터 계산된 값을 할당**하기 때문에 따로 메서드를 조작할 필요 없이 간편하고 빠르게 원하는 값을 저장할 수 있게 됩니다.
+스위프트의 변수에는 매뉴얼하게 할당하는 방법 외에도 자동으로 값을 할당 할 수 있습니다. C_omputerted variable_은 값 대신 코드를 작성합니다. **지정한 변수로 부터 계산된 값을 할당**하기 때문에 따로 메서드를 조작할 필요 없이 간편하고 빠르게 원하는 값을 저장할 수 있게 됩니다.
 
 ```swift
 struct ExamModel {
@@ -115,9 +109,25 @@ struct ExamModel {
 
 ### Lazy
 
-변수명과 함께 사용되는 키워드이다. 호출할 때, 동작하는 코드를 담고 있다. 처음부터 코드를 셋업할 필요가 없다는 의미로 비록 늦게 실행될 수 있지만 실행과 동시에 메모리에 할당되어 이점을 가질 수 있다.
+변수에 _lazy_ 키워드를 붙이면 해당 변수를 늦게 실행합니다. 혹시 레이지 로딩이라고 들어 보셨나요? 말그대로 늦게 로딩한다는 의미입니다. 만약 사진을 포함한 많은 리소스를 가진 웹페이지에 접근한다고 가정 해볼게요. 처음에 브라우저가 초기화면을 렌더링할 때 리소스가 많을 수록 사용자 경험은 떨어지게 됩니다.
+
+
+
+이때 화면에서 보이지 않는 이미지가 있다면 초기 렌더링에 포함될 필요가 있을까요? 나중에 화면에서 필요하면 그때 이미지를 불러오면 됩니다. 레이지 로딩 덕분에 초기화면을 더 빨리 볼 수 있겠네요. 이처럼 레이의 개념은 “게으르다”라고 이해하기 보다 늦게, 필요할 때 실행 된다는 의미로 적절하게 사용하면 성능상의 이점을 가져올 수 있습니다.
+
+
+
+다시 돌아와 스위프트에서는 _lazy_ 변수에 함수를 작성합니다. 중요한 것은 이 변수에 할당 함수는 메모리를 점유하고 있지 않습니다. 즉, 실행과 동시에 할당되기 때문에 **메모리상의 이점을 가진 함수를 선언**할 때 사용합니다.
+
+
 
 ```swift
+/* 
+    https://developer.apple.com/documentation/coredata/setting_up_a_core_data_stack)
+    Core Data를 초기화할 때 사용되는 실제 예시 코드를 가져와봤어요.
+    persistentContainer는 나중에 사용할 때, 실제 인스턴스화 된다는 것을 알 수 있네요.
+*/
+
 lazy var persistentContainer: NSPersistentContainer = {    
     let container = NSPersistentContainer(name: "DataModel")
     container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -133,43 +143,47 @@ lazy var persistentContainer: NSPersistentContainer = {
 
 
 
-### get, set, didSet, willSet
+### Get, Set, DidSet, WillSet
 
-프로퍼티를 다채롭게 활용하는 방법이다.
+클래스 내부에 선언하는 프로퍼티에 _get_과 _set_를 사용하면 변수를 읽거나 쓰는 동시에 값과 연관된 로직을 내부적으로 수행할 수 있습니다. 이를 _Computed properties_라 하며 데이터를 가공하여 사용할 수 있습니다. 뿐만아니라 _Observed properties_를 사용하면 프로퍼티에 값을 할당하는 시점의 전/후에 함수를 호출할 수도 있습니다. 먼저 _get_과 _set_을 활용한 실제 예시를 살펴보겠습니다.
+
+
 
 ```swift
-// computed properties
-// 값을 읽고/쓸때 사용하는 로
-var myProperty: Int {
-   get {
-      return _myProperty
-   }
-   set {
-      _myProperty = newValue
-   }
-}
+@IBOutlet weak var displayLabel: UILabel!
 
-// observed properties
-// 값이 입력된 직전/후에 수행할 로직
-var myProperty: Int = 10 {
-   willSet {
-      print(myProperty) // 10
-      print(newValue) // newValue
-      loadItems()
-   }
-   didSet {
-      print(oldValue) // 10
-      print(myProperty) // newValue 
-      loadItems()
-   }
+private var displayValue: Double {
+    get {
+        guard let currentDisplayValue = Double(displayLabel.text!) else {
+            fatalError("Connot convert display label text to a Double!")
+        }
+        return currentDisplayValue
+    }
+    set {
+        // newValue는 set내부에서 사용할 수 있는 키워드로 새로운 값을 가지고 있습니다.
+        displayLabel.text = String(newValue)
+    }
 }
+```
 
-// 실전
-var myProperty: Int = 10 {
+
+
+위의 코드를 설명하자면, _displayValue_는 _displayLabel.text_에 있는 데이터를 가공하여 사용하는 _Computed property_입니다. _displayValue_의 값을 읽으면 _get_이 동작하는데 해당 코드는 _displayLabel.text_의 값이 _Double_ 자료형으로 변환이 불가능하면 에러를 발생시키는 검증의 로직이 추가 되어 있습니다. 그리고 _displayValue_에 _Double_ 타입의 새로운 값이 할당되면 _String_() 함수를 통해 자료형이 변환되어 _displayLabel.text_에 저장됩니다. 감이 오시나요? _displayValue_없이 _displayLabel.text_의 값을 사용한다면 그 때마다 코드를 반복해서 사용하게 될거에요. 하지 _get_과 _set_를 사용하면 중복적인 코드를 제거할 수 있을 뿐만아니 굳이 알필요 없는 코드를 내부에 감출 수 있게 되어 읽기 쉬운 코드를 작성할 수 있습니다.
+
+
+
+```swift
+var selectedBag: Bag? {
+
+   // selectedBag에 값이 할당되었다면, 그 직전에 loadBagDetail() 함수를 호출 할 수 있구요.
+   willSet { 
+      loadBagDetail()
+   }
+   
+   // selectedBag에 값이 할당된 직후에 검증을 추가할 수 있습니다.
    didSet {
-      if myProperty > 18 {
-         print("invalid value, Set myProperty to 18")
-         myProperty = 18
+      if selectedBag.name == "Chanel" {
+         print("당장 놔라.")
       }
    }
 }
@@ -181,18 +195,21 @@ var myProperty: Int = 10 {
 
 ### Access Control
 
-1. private\
-   해당 스코프 내에서만 접근할 수 있는 변수. 항상 변수를 선언할 때 이 키워드를 붙이는 습관을 들인다. 상태의 안전을 보장할 수 있다.
-2. fileprivate\
-   파일 내에서만 접근할 수 있는 변수.
-3. internal\
-   default, 앱(모듈) 내에서 사용할 수 있는 변수
-4. public\
-   다양한 모듈에서 사용할 수 있는 변수, 오버라이팅을 할 수 없다.\
-   API, SDK, Frameworks and Libraries
-5. open\
-   public+, 오버라이팅이 가능하며 모든 것을 사용할 수 있다.
+프로퍼티와 메서드를 정의할 때, 키워드를 통해 접근 레벨을 부여할 수 있습니다.
+
+1. _**private(only scope)**_\
+   해당 스코프 내에서만 접근할 수 있도록 설정합니다. 상태의 안전을 보장할 수 있습니다.
+2. _fileprivate(only file)_\
+   파일 내에서만 접근할 수 있도 설정합니다.&#x20;
+3. _internal(default)_\
+   앱(모듈) 내에서 접근할 수 있도 설정합니다.&#x20;
+4. _public(API, SDK, Frameworks and Libraries)_\
+   모든 모듈에서 사용할 수 있게 설정합니다. 단, 오버라이팅을 통해 수정이 불가능합니다.
+5. _open(ALL)_\
+   _public+_, 오버라이팅이 가능하며 모든 곳에서 사용할 수 있도록 설정합니다.
 
 {% hint style="info" %}
-구조체를 사용하다가 필요에 따라 클래스로 변경하는 것처럼, Acess level 또한 필요에 따라 단계를 높여 사용하는 습관을 기르자.
+* let으로 변수를 선언하고 필요에 따라 var로 변경 한다.
+* struct를 사용하다가 필요에 따라 class로 변경 한다.
+* Acess level 또한 필요에 따라 단계를 높여 사용 한다.
 {% endhint %}
