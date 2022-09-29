@@ -6,6 +6,5 @@ description: >-
 
 # Design Patterns
 
-#### reference
 
-* Design Patterns in swift5 by Karoly Nyisztor
+

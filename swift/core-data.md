@@ -1,7 +1,3 @@
----
-description: 스위프트의 기본 문법과 이해를 돕기위한 섹션
----
-
 # Fundamentals
 
 #### reference
