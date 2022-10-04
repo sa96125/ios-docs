@@ -6,15 +6,5 @@ description: >-
 
 # Design Patterns
 
-#### reference
-
-* Design Patterns in swift5 by Karoly Nyisztor
 
 
-
-#### features
-
-* 어떤 특정 문제를 해결하는 최적의 방법(best practices)
-* 개발 속도 빠르다.
-* 어느 프로그래밍 언어에서 사용가능 하다
-* 유연하고 재사용가능한 특징을 가진다.
