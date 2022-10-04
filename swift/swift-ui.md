@@ -43,16 +43,28 @@ struct ContentView_Previews: PreviewProvider {
 ```swift
 // Extract subView로 구조체로 분리가능.
 
-ZStack {}
-VStack {}
-HStack {}
+HVZStack (
+    alignment: .center / .leading
+)
+{}
 
 Spacer()
+
+
+Text(String) 
+.font(.largeTitle)
+.font(.title)
+.foregroundColor(.green)
+.foregroundColor(.orange)
+.padding(.all)
+.lineLimit(nil)
+
 
 Image("Background")
 .resizable()
 .edgesIgnoringSageArea(.all)
 .aspectRatio(1, contentMode: .fit)
+
 
 Button(action: {
     self.leftDiceNumber = Int.random(in: 1...6)
@@ -66,13 +78,81 @@ Button(action: {
 }
 .background(.red)
 
+
 NavigationView {
     List(posts) { post in
         Text(post.title)
     }
     .navigationTitle("H4XOR NEWS")
 }
+
+
+Text(String) 
+.font(.largeTitle)
+.font(.title)
+.foregroundColor(.green)
+.foregroundColor(.orange)
+.padding(.all)
+.lineLimit(nil)
+
+
+Image(””)
+.resizable()
+.aspectRatio(contentMode: .fit)
+.clipShape(Circle())
+.cornerRadius(20)
+.padding(.all)
+.frame(width: 100, height:100)
+
+
+.onTapGesture { 
+    withAnimation {
+        self.zoomed.toggle()
+    }
+}
+
+
+List(items, id: \.name) { item in
+    Text(item.name)
+} 
+
+or
+
+List(item) { 
+    ForEach(tasks) { task in 
+    }
+}
+
+
+NavigationView {
+    .navigationBarTitle(String, displayMode: .inline)
+    .navigationLink(destination:newView) {
+        selectedView
+    }
+}
+
+newView
+.navigationBarTitle()
+
+
+Button(action: func) {
+    Text(String)
+}
+
+
+Toggle(isOn: .constant(true)) {
+    Text(String)
+}
+
+
+TextField($name, placeholder: Text(String))
 ```
+
+
+
+### 동작 과정
+
+user interaction → action → mutate → state → update → view → render
 
 
 
@@ -82,11 +162,52 @@ NavigationView {
 
 SwiftUI는 이렇게 접근가능한 상태의 리스트를 가지고 계속 모니터링하여 화면에 업데이트하는 작동방식을 가졌다.
 
+@State private var zoomed: Bool = false
+
+view → viewModel (unidirectial binding)
+
+struct mutating을 대신하여 값을 수정하기 위함. swiftUI에서 상태를 사용하기 위해서 꼭 이 키워드를 사용한다. Bool값의 경우 .toggle()함 수 사용.
+
+state가 변경되면 리 렌더링, 즉 화면을 다시 그린다.
+
+
+
+### @Binding
+
+@Binding $zoomed
+
+view ↔ viewModel (bidirectional
+
+같은 클래스안에 선언된 @state 변수를 변경해야한다면 $를 사용하여 변경되는 상태를 즉시 화면에 업데이트한다
+
+만약 다른 클래스,구조체에서 @state 변수를 변경해야한다면 어떻게 해야할까? 심지어 private로 설정 되어 있으면 새롭게 선언해야할까? No, @Binding 으로 값을 제외하고 선언해주고 $로 값을 넘겨준다.
+
+
+
+### ObsevableObject Protocol
+
+@Published var
+
+상태 및 비지니스 로직을 분리 시킬 수 있다. 그리고 이 오브젝트를 호출하기 위해서는 @observedObject로 선언한다.
+
+
+
+### @enbironmentObject
+
+global state , observedObject의 prop Drilling를 해결하기 위한 방법
+
+1. sceneDelegate 파일에서 ContenView.environmentObject( view ) 로 변경
+2. 선언된 @observedObject 를 @enbironmentObject로 바꾼다.
+
 
 
 ### Identifiable Protocol
 
 리스트가 아이디에 따른 순서를 인식할 수 있게 하는 프로토콜이다.
+
+:Identifiable
+
+let id = UUID() 필수
 
 
 
@@ -126,3 +247,11 @@ struct WebView: UIViewRepresentable {
 ### Custom Font
 
 xcode13에서 plist파일이 제거 되었기때문에 targets > Info > Custom iOS Target Properties에서 Fonts provided by application를 추가한 후 디렉토리에 추가된 Info파일에서 <폰트이름>.ttf파일을 추가한다.
+
+
+
+
+
+### Canvas
+
+실제 배포에서 사용되는 에셋과 실제 개발환경에서 사용할 에셋을 구별해놓았다. preview Contet에 넣어 사용한다.

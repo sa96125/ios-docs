@@ -9,6 +9,7 @@
 * [Clean code](swift/clean-code.md)
 * [Design Patterns](swift/design-patterns.md)
   * [MVC](swift/design-patterns/mvc.md)
+  * [MVVM](swift/design-patterns/mvvm.md)
   * [Delegate](swift/design-patterns/delegate.md)
   * [Observer](swift/design-patterns/observer.md)
   * [Singleton](swift/design-patterns/singleton.md)
