@@ -258,4 +258,78 @@ xcode13에서 plist파일이 제거 되었기때문에 targets > Info > Custom i
 
 
 
-### 프로젝트 진행 이슈 기록
+### 필
+
+List
+
+.toobar {
+
+ToolbarItem
+
+}
+
+List > ForEach
+
+.onDelete(perform: deleteItems)
+
+Form {
+
+Section(header: Text(String).font(.body)) {
+
+TextField(String, text: String)
+
+}
+
+Section(header: Text(String).font(.body)) {
+
+ForEach(items, id:\\.name) item in {
+
+HStack {
+
+Text(item.imageURL)
+
+Text([item.name](http://item.name))
+
+}
+
+}
+
+}
+
+Section(header: Text(string), footer: Text(string)) {
+
+Picker(””, selection: String) {
+
+Text(String).tag(String)
+
+Text(String).tag(String)
+
+Text(String).tag(String)
+
+}
+
+.pickerStyle(SegmentedPickerStyle())
+
+}
+
+}
+
+// 내장 이미지
+
+Image(systemName: “checkmark”)
+
+// 세부조정
+
+.padding(EdgeInsets(top: leading: bottom: trailing))
+
+// 모달
+
+.sheet(isPresented: Bool) {
+
+view()
+
+}
+
+* DateFormatter 처럼 특성을 변경하는 것은 외부로 빼서 설정하고 리턴해서 코드를 줄인다.
+* @FetchRequest
+* combine은 이벤트를 호출하거나, 구독자에게 데이터를 넘겨주기 위함.
