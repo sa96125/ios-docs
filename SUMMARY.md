@@ -3,7 +3,7 @@
 ## swift
 
 * [Background](README.md)
-  * [History](swift/background/history.md)
+  * [Hand ibook](swift/background/hand-ibook.md)
   * [Terms](swift/terms.md)
   * [Shortcut keys](swift/background/shortcut-keys.md)
 * [Clean code](swift/clean-code.md)
