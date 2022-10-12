@@ -1,6 +1,16 @@
-# Utils
+# cheet sheet
 
-### Round decimals
+#### 메인스레드 늦게 실행하기
+
+```swift
+DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+    // code
+}
+```
+
+
+
+#### 타입 변환하기
 
 ```swift
 let pi: Double = 3.14159265
