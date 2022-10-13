@@ -8,10 +8,6 @@ description: Swift is a very strict language about data types.
 
 
 
-
-
-### Primary types
-
 * NsObject : only NS type
 * AnyObject : only Class
 * Any : All
@@ -43,12 +39,14 @@ description: Swift is a very strict language about data types.
 
 ### Operators
 
-할당연산자, 동등연산자, 산술연산자 그리고 범위 연산자가 있습니다. 범위 연산자는 배열, for 문, case 문에서 유연하게 사용할 수 있습니다.
+할당연산자, 동등연산자, 산술연산자, 논리연산 그리고 범위 연산자가 있습니다. 범위 연산자는 배열, for 문, case 문에서 유연하게 사용할 수 있습니다.
 
 * Assignment operator (=)
 * Equal to operator (==)
+* Logical operator(&&, ||)
 * Arithmetic operators (+, -, \*, /, %)
 * Range operators(…, ..<)
+* Check operators( !=, >, <, >=, <=)
 
 계산식에 다양한 연산을 포함하고 있을 경우에 대괄호, 제곱, 곱셈(나눗셈), 플러스(마이너스) 우선순으로로 계산합니다. 만약 우선순위를 계산할 경우 왼쪽에서 부터 차례대로 연산합니다. C 및 Objective-C의 산술 연산자와 달리 Swift 산술 연산자는 기본적으로 타입이 수용할 수 있는 범위 외 값이 오버플로되는 것을 허용하지 않습니다. 필요 시 ampersand(&)를 연산앞에 붙여 사용합니다.
 
@@ -64,6 +62,10 @@ n == 0 ? "none" : "something"
 for name in names[...2] {
     print(name)
 }
+
+// min, max value
+Int.min
+Int.max
 
 // random
 Int.random(in:1...5)
