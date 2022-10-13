@@ -11,7 +11,7 @@
   * [primary types and operators](swift/fundamentals/primary-types-and-operators.md)
   * [collection types](swift/fundamentals/collection-types.md)
   * [function](swift/fundamentals/function.md)
-  * [control flow, statements](swift/fundamentals/control-flow-statements.md)
+  * [control flow, statements](swift/fundamentals/statements.md)
   * [optional](swift/fundamentals/optional.md)
   * [structure](swift/fundamentals/structure.md)
   * [class](swift/fundamentals/class.md)
