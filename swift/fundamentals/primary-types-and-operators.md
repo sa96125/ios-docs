@@ -8,9 +8,7 @@ description: Swift is a very strict language about data types.
 
 
 
-
-
-### Primary types
+### Primary
 
 * NsObject : only NS type
 * AnyObject : only Class
