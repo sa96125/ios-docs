@@ -53,4 +53,10 @@ String 데이터를 사용할 때 주의할 점은 오타로 인해 발생하는
 * percentageProgress
 * secondsPassed
 * totalTime
+* questionLabel
+* progressBar
+* trueButton
+* falseButton
+* questionNumber
+* quiz = \[ Question(text:answer:) ]
 
